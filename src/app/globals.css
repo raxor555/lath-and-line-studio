@@ -1,26 +1,146 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@theme {
+  --color-bone: #eeeae4;
+  --color-paper: #f7f4ef;
+  --color-sand: #e3dbd1;
+  --color-ink: #211813;
+  --color-ink-2: #4a3b31;
+  --color-muted: #7a6d63;
+  --color-line: #ddd5ca;
+  --color-clay: #b95e37;
+  --font-sans: var(--font-geist-sans), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-urdu: var(--font-nastaliq), "Jameel Noori Nastaleeq", serif;
+  --radius-frame: 28px;
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-bone);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 3px;
+}
+
+.glass {
+  background: rgb(255 255 255 / 0.62);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.6) inset, 0 12px 40px -12px rgb(33 24 19 / 0.22);
+}
+
+.glass-dark {
+  background: rgb(24 18 14 / 0.38);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.14) inset;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+input[type="range"].range {
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+}
+input[type="range"].range::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-ink);
+}
+input[type="range"].range::-moz-range-track {
+  height: 2px;
+  background: var(--color-ink);
+}
+input[type="range"].range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -9px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid var(--color-ink);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+}
+input[type="range"].range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid var(--color-ink);
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* loader: slats rise into place, a band of sun sweeps across, product names cycle.
+   transform/opacity only, so the compositor runs them even while the main thread builds the 3D */
+.ll-slat {
+  transform: scaleY(0);
+  transform-origin: bottom;
+  animation: ll-rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  will-change: transform;
+}
+@keyframes ll-rise { to { transform: scaleY(1); } }
+.ll-sheen {
+  animation: ll-sheen 2.6s ease-in-out 1s infinite;
+  will-change: transform;
+}
+@keyframes ll-sheen { from { transform: translateX(0); } to { transform: translateX(420%); } }
+.ll-cycle {
+  opacity: 0;
+  transform: translateY(100%);
+  animation: ll-cycle 6.4s ease-in-out infinite;
+}
+@keyframes ll-cycle {
+  0% { opacity: 0; transform: translateY(100%); }
+  5%, 22% { opacity: 1; transform: translateY(0); }
+  27%, 100% { opacity: 0; transform: translateY(-100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ll-slat { animation: none; transform: none; }
+  .ll-sheen, .ll-cycle { animation: none; }
+  .ll-cycle:first-child { opacity: 1; transform: none; }
 }

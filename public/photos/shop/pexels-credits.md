@@ -1,0 +1,19 @@
+- hero.jpg — Pexels photo #28254550 by achraf borkadi — https://www.pexels.com/photo/studio-maarif-50m2-28254550/
+- pvc-woodgrain.jpg — Pexels photo #12289355 by dada _design — https://www.pexels.com/photo/bedroom-interior-design-12289355/
+- wpc-slat.jpg — Pexels photo #29252625 by Mateusz Pielech — https://www.pexels.com/photo/modern-minimalist-living-room-interior-design-29252625/
+- pvc-ceiling.jpg — Pexels photo #29419693 by Jan van der Wolf — https://www.pexels.com/photo/wooden-ceiling-with-linear-lights-pattern-29419693/
+- jaali-divider.jpg — Pexels photo #6908566 by Max Vakhtbovych — https://www.pexels.com/photo/wooden-panel-dividers-in-a-living-space-6908566/
+- acc-led.jpg — Pexels photo #17679996 by Declan Sun — https://www.pexels.com/photo/light-on-floor-in-corner-17679996/
+- pvc-fluted.jpg — Pexels photo #12281849 by dada _design — https://www.pexels.com/photo/pillows-on-gray-couch-12281849/
+- pvc-louver.jpg — Pexels photo #6958141 by Max Vakhtbovych — https://www.pexels.com/photo/interior-of-apartment-with-wooden-decorations-6958141/
+- marble-gloss.jpg — Pexels photo #6920454 by Max Vakhtbovych — https://www.pexels.com/photo/modern-design-living-room-with-marble-wall-accent-6920454/
+- wallpaper.jpg — Pexels photo #8134807 by Max Vakhtbovych — https://www.pexels.com/photo/black-lamps-on-the-side-of-the-bed-8134807/
+- pvc-halfround.jpg — Pexels photo #9951147 by Peter Holmboe — https://www.pexels.com/photo/wall-from-hardwood-9951147/
+l-panels-40228987/
+- jaali-shadow.jpg — Pexels photo #36355605 by Canan İldeniz — https://www.pexels.com/photo/intricate-shadow-patterns-on-screened-patio-36355605/
+- wpc-cladding.jpg — Pexels photo #18513513 by Francesco Ungaro — https://www.pexels.com/photo/window-in-wooden-facade-of-residential-building-18513513/
+- wpc-decking.jpg — Pexels photo #7587879 by Max Vakhtbovych — https://www.pexels.com/photo/terrace-in-house-7587879/
+- jaali-mashrabiya.jpg — Pexels photo #30615454 by Sami Raad — https://www.pexels.com/photo/traditional-mashrabiya-window-in-damascus-syria-30615454/
+- wpc-acoustic.jpg — Pexels photo #11449320 by Guillaume Pierre LEROY — https://www.pexels.com/photo/wooden-panels-on-wall-11449320/
+- pvc-led-slat.jpg — Pexels photo #27562187 by Ansar Muhammad — https://www.pexels.com/photo/residential-project-in-sulaymaniyah-city-27562187/
+- hero.jpg — Pexels photo #28254550 by achraf borkadi — https://www.pexels.com/photo/studio-maarif-50m2-28254550/

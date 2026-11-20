@@ -1,0 +1,34 @@
+- 7045367.jpg — Pexels photo #7045367 by Max Vakhtbovych — https://www.pexels.com/photo/modern-dining-room-interior-with-table-and-sofa-at-home-7045367/
+- 12289355.jpg — Pexels photo #12289355 by dada _design — https://www.pexels.com/photo/bedroom-interior-design-12289355/
+- 34987157.jpg — Pexels photo #34987157 by Yao L — https://www.pexels.com/photo/cozy-mid-century-modern-living-room-interior-34987157/
+- 6908566.jpg — Pexels photo #6908566 by Max Vakhtbovych — https://www.pexels.com/photo/wooden-panel-dividers-in-a-living-space-6908566/
+- 13772063.jpg — Pexels photo #13772063 by David Underland — https://www.pexels.com/photo/exterior-of-a-modern-minimalistic-house-13772063/
+- 7512038.jpg — Pexels photo #7512038 by Max Vakhtbovych — https://www.pexels.com/photo/modern-spacious-living-room-with-tv-and-sofa-7512038/
+- 8092177.jpg — Pexels photo #8092177 by Max Vakhtbovych — https://www.pexels.com/photo/couch-in-room-8092177/
+- 6805422.jpg — Pexels photo #6805422 by https://kaboompics.com/ — https://www.pexels.com/photo/minimalist-home-decoration-6805422/
+- 31771712.jpg — Pexels photo #31771712 by Pacific Business Park — https://www.pexels.com/photo/warm-wooden-office-interior-decor-with-glass-doors-31771712/
+- 27164974.jpg — Pexels photo #27164974 by Wilcle Nunes — https://www.pexels.com/photo/interior-design-of-living-room-27164974/
+- 29252625.jpg — Pexels photo #29252625 by Mateusz Pielech — https://www.pexels.com/photo/modern-minimalist-living-room-interior-design-29252625/
+- 6342356.jpg — Pexels photo #6342356 by ROMAN ODINTSOV — https://www.pexels.com/photo/exterior-of-a-modern-style-house-in-a-desert-6342356/
+- 6958141.jpg — Pexels photo #6958141 by Max Vakhtbovych — https://www.pexels.com/photo/interior-of-apartment-with-wooden-decorations-6958141/
+- 9173035.jpg — Pexels photo #9173035 by Chris F — https://www.pexels.com/photo/modern-house-built-on-the-grassland-9173035/
+- 8146211.jpg — Pexels photo #8146211 by Max Vakhtbovych — https://www.pexels.com/photo/modern-bathroom-with-double-vanity-8146211/
+- 15867753.jpg — Pexels photo #15867753 by Thới Nam Cao — https://www.pexels.com/photo/a-modern-living-room-15867753/
+- 14614673.jpg — Pexels photo #14614673 by Hiba Q. Omar — https://www.pexels.com/photo/television-mounted-on-wooden-wall-14614673/
+- 6585764.jpg — Pexels photo #6585764 by Max Vakhtbovych — https://www.pexels.com/photo/contemporary-apartment-with-cozy-sofa-and-minimalist-furniture-6585764/
+- 6585766.jpg — Pexels photo #6585766 by Max Vakhtbovych — https://www.pexels.com/photo/wooden-furniture-and-wall-in-modern-apartment-with-cozy-sofa-and-tv-6585766/
+- 37550263.jpg — Pexels photo #37550263 by Pawan Bhandari — https://www.pexels.com/photo/modern-office-interior-with-minimalist-design-37550263/
+- 8089161.jpg — Pexels photo #8089161 by Max Vakhtbovych — https://www.pexels.com/photo/modern-furniture-in-luxury-interior-design-8089161/
+- 7546281.jpg — Pexels photo #7546281 by Max Vakhtbovych — https://www.pexels.com/photo/symmetrical-view-of-an-empty-beige-bedroom-7546281/
+- 7018406.jpg — Pexels photo #7018406 by Max Vakhtbovych — https://www.pexels.com/photo/comfortable-couch-and-coffee-table-in-modern-living-room-7018406/
+- 8389903.jpg — Pexels photo #8389903 by Amar  Preciado — https://www.pexels.com/photo/minimalistic-interior-design-8389903/
+- 8134759.jpg — Pexels photo #8134759 by Max Vakhtbovych — https://www.pexels.com/photo/brown-leather-couch-on-wooden-floor-8134759/
+- 35228360.jpg — Pexels photo #35228360 by Meltem  B. — https://www.pexels.com/photo/golden-sunlight-streaming-into-cozy-room-interior-35228360/
+- 12289388.jpg — Pexels photo #12289388 by dada _design — https://www.pexels.com/photo/living-room-interior-with-brown-sectional-couch-and-round-center-table-12289388/
+- 6394586.jpg — Pexels photo #6394586 by Max Vakhtbovych — https://www.pexels.com/photo/bedroom-interior-with-carved-panel-between-shiny-lamps-6394586/
+- nero_big.jpg — Pexels photo #3721374 by Magda Ehlers — https://www.pexels.com/photo/dark-gray-texture-with-cracks-3721374/
+
+## Texture photos (Pexels license)
+- 3847492 (Statuario marble texture), ready made — https://www.pexels.com/photo/white-and-black-marble-top-3847492/
+- 3721374 (Nero marble texture), Magda Ehlers — https://www.pexels.com/photo/dark-gray-texture-with-cracks-3721374/
+- 4977440 (Terrazzo texture), kaboompics.com — https://www.pexels.com/photo/close-up-of-marble-surface-4977440/
