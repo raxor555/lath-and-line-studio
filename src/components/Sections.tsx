@@ -6,10 +6,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useLenis } from "lenis/react";
 import { ArrowUpRight } from "lucide-react";
-import { useTour } from "@/lib/tour-store";
-import { designScrollY } from "./SmoothScroll";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -36,25 +33,12 @@ const ROOMS = [
   { title: "Entrance hall, Bahria Town Karachi", tag: "Oak slat divider", img: "/photos/room-divider.jpg", alt: "Hallway with oak slat dividers and a hidden door", try: "slat-oak", cta: "Try oak slats" },
 ];
 
-function useTryFinish() {
-  const lenis = useLenis();
-  return (pid: string | null) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    const s = useTour.getState();
-    s.setActive("feature");
-    if (pid) s.setFinish("feature", pid);
-    if (lenis) lenis.scrollTo(designScrollY(), { duration: 2.4 });
-    else window.scrollTo({ top: designScrollY() });
-  };
-}
-
 function Arrow() {
   return <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/20 backdrop-blur-md transition group-hover:bg-white group-hover:text-ink"><ArrowUpRight className="size-4" /></span>;
 }
 
 export default function Sections() {
   const root = useRef<HTMLDivElement>(null);
-  const tryFinish = useTryFinish();
 
   useGSAP(() => {
     gsap.to(".st-word", { opacity: 1, stagger: 0.08, ease: "none", scrollTrigger: { trigger: ".st-text", start: "top 80%", end: "bottom 45%", scrub: true } });
@@ -128,7 +112,7 @@ export default function Sections() {
                 </div>
                 <div className="mt-4 flex items-baseline justify-between gap-4">
                   <h3 className="text-[26px] font-light tracking-[-0.03em]">{r.title}</h3>
-                  <a href="#visualizer" onClick={tryFinish(r.try)} className="shrink-0 border-b border-ink pb-0.5 text-[14px] font-medium">{r.cta}</a>
+                  <Link href={r.try ? `/visualizer?finish=${r.try}` : "/visualizer"} className="shrink-0 border-b border-ink pb-0.5 text-[14px] font-medium">{r.cta}</Link>
                 </div>
               </article>
             ))}
@@ -164,7 +148,7 @@ export default function Sections() {
               <p lang="ur" dir="rtl" className="mt-6 w-max max-w-full font-urdu text-[clamp(1.3rem,2.2vw,2rem)] leading-[2] text-paper/70">اپنی دیوار کی تصویر بھیجیں، باقی ہم پر چھوڑ دیں</p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <a href="#visualizer" onClick={tryFinish(null)} className="inline-flex h-[52px] items-center gap-2 rounded-2xl bg-paper pl-5 pr-4 font-medium text-ink">Open the visualizer <ArrowUpRight className="size-4" /></a>
+              <Link href="/visualizer" className="inline-flex h-[52px] items-center gap-2 rounded-2xl bg-paper pl-5 pr-4 font-medium text-ink">Open the visualizer <ArrowUpRight className="size-4" /></Link>
               <a href={whatsapp("Assalam o Alaikum, I would like a quote for my wall.")} target={WHATSAPP_NUMBER ? "_blank" : undefined} rel="noreferrer" className="inline-flex h-[52px] items-center gap-2 rounded-2xl bg-[#25D366] px-5 font-medium text-[#0b2b17]">
                 <svg viewBox="0 0 24 24" className="size-[18px]" aria-hidden><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3z"/></svg>
                 Send it on WhatsApp

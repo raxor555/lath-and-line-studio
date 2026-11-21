@@ -53,16 +53,18 @@ const manifestReady = () => (manifestP ??= loadManifest());
 /* ---------- adaptive quality ----------
    2: bloom + SMAA at up to 1.5× DPR   1: the same at 1.25×   0: no post-processing, native MSAA, 1×.
    The tier drops automatically when the GPU can't hold ~50 fps while the camera moves,
-   and the result is remembered so the next visit starts at the right level. */
-const QKEY = "ll-quality-v2";
+   Desktop never goes below tier 1 (post-fx and SMAA stay on), and a drop lasts only for the current tab session:
+   a laptop that was hot once must not be stuck on low quality for every later visit. */
+const QKEY = "ll-quality-v3";
+const FLOOR = LITE ? -1 : 1;
 /** phones and small tablets: lightest tier, smaller sky, half the planting */
 // ?q=0|1|2 pins a tier (for testing) and turns the automatic drop off
 const pinned = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("q");
 // tiers: 2 full · 1 lighter post-fx · 0 no post-fx · -1 "lite": below 1x resolution and no round bushes
-const readTier = () => { if (pinned !== null) return Math.max(-1, Math.min(2, +pinned)); try { const v = localStorage.getItem(QKEY); return v === null ? (LITE ? 0 : 2) : Math.max(-1, Math.min(2, +v)); } catch { return LITE ? 0 : 2; } };
+const readTier = () => { if (pinned !== null) return Math.max(-1, Math.min(2, +pinned)); try { const v = sessionStorage.getItem(QKEY); return v === null ? (LITE ? 0 : 2) : Math.max(FLOOR, Math.min(2, +v)); } catch { return LITE ? 0 : 2; } };
 export const useQuality = create<{ tier: number; drop: () => void }>((set, get) => ({
   tier: typeof window === "undefined" ? 2 : readTier(),
-  drop: () => { const tier = Math.max(-1, get().tier - 1); try { localStorage.setItem(QKEY, String(tier)); } catch {} set({ tier }); },
+  drop: () => { const tier = Math.max(FLOOR, get().tier - 1); try { sessionStorage.setItem(QKEY, String(tier)); } catch {} set({ tier }); },
 }));
 const perf = { sum: 0, n: 0, skip: 30 };
 function samplePerf(dt: number) {
@@ -72,7 +74,7 @@ function samplePerf(dt: number) {
   if (perf.n < 40) return;
   const fps = perf.n / perf.sum; perf.sum = 0; perf.n = 0;
   const q = useQuality.getState();
-  if (fps < 50 && q.tier > -1 && pinned === null) { perf.skip = 45; q.drop(); }
+  if (fps < 50 && q.tier > FLOOR && pinned === null) { perf.skip = 45; q.drop(); }
 }
 
 /* The sky photo is drawn on a camera-centred sphere instead of scene.background: three.js converts an equirect
@@ -533,9 +535,7 @@ export default function Scene() {
       camera={{ fov: 40, near: 0.05, far: 600, position: [8.6, 1.55, 16.5] }}
       // the renderer only tone-maps when drawing straight to the screen (tier 0);
       // with post-processing the ToneMapping effect does it instead
-      // MSAA only on phones (no post-processing there); on desktop SMAA in the composer anti-aliases, and a
-      // multisampled canvas would cost ~125 MB of GPU memory for nothing
-      gl={{ antialias: LITE, powerPreference: "high-performance", stencil: false, toneMapping: THREE.AgXToneMapping }}
+      gl={{ antialias: true, powerPreference: "high-performance", stencil: false, toneMapping: THREE.AgXToneMapping }}
       style={{ position: "absolute", inset: 0, touchAction: "pan-y" }}
     >
       <Suspense fallback={null}>

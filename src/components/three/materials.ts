@@ -1,8 +1,9 @@
 import * as THREE from "three";
+import { LITE } from "@/lib/device";
 
 /** Phones and small tablets: load the half-size `_m` copies of every texture, lightmap and the furniture model.
  *  Full-size assets need ~740 MB of GPU memory, past the point where mobile browsers kill the tab. */
-export const LITE = typeof window !== "undefined" && (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 820);
+export { LITE };
 export const lite = (path: string) => (LITE ? path.replace(/\.(jpg|webp|glb)$/, "_m.$1") : path);
 
 const loader = new THREE.TextureLoader();

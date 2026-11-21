@@ -1,13 +1,13 @@
-import Tour from "@/components/tour/Tour";
+import Hero from "@/components/home/Hero";
 import Sections from "@/components/Sections";
 import { Bestsellers, CategoryTiles, PvcRange } from "@/components/home/HomeShop";
 
 export default function Home() {
   return (
     <>
-      {/* the 3D house is the hero; scrolling walks into it, then the shop follows */}
-      <Tour />
-      <div className="pt-24"><CategoryTiles /></div>
+      {/* a photo hero so the shop opens instantly; the 3D house has its own page, /visualizer */}
+      <Hero />
+      <div className="pt-20"><CategoryTiles /></div>
       <PvcRange />
       <Bestsellers />
       <Sections />
