@@ -10,7 +10,7 @@ export default function Footer() {
           <Logo light />
           <p className="mt-4 max-w-[26rem] text-[14px] text-paper/80">Delivery all over Pakistan. Cash on delivery, bank transfer, JazzCash and Easypaisa.</p>
           <p lang="ur" dir="rtl" className="mt-3 w-max font-urdu text-[18px] leading-[2] text-paper/70">کراچی میں تیار، پورے پاکستان میں ڈیلیوری</p>
-          <p className="mt-4 max-w-[26rem] text-[12px] text-paper/45">Reference build. Brand, prices and figures are placeholders. Photos from Pexels; materials, sky and models from Poly Haven (CC0). Plants from Sketchfab (CC BY 4.0): “Photorealistic Bush” by adriansheremet, “Palm Plant” by SomeKevin.</p>
+          <p className="mt-4 max-w-[26rem] text-[12px] text-paper/45">Reference build. Brand, prices and figures are placeholders. Photos from Pexels; marble and terrazzo swatches from Poly Haven (CC0).</p>
         </div>
         <div>
           <h4 className="mb-3 font-mono text-[12px] text-paper/50">Shop</h4>
@@ -19,7 +19,6 @@ export default function Footer() {
         <div>
           <h4 className="mb-3 font-mono text-[12px] text-paper/50">Help</h4>
           <ul className="grid gap-2 text-[14px] text-paper/85">
-            <li><Link href="/visualizer" className="hover:text-paper">3D Visualizer</Link></li>
             <li><Link href="/#process" className="hover:text-paper">How fitting works</Link></li>
             <li><Link href="/checkout" className="hover:text-paper">Checkout</Link></li>
             <li>Delivery all over Pakistan</li>

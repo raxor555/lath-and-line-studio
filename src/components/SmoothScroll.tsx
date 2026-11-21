@@ -28,9 +28,3 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     </ReactLenis>
   );
 }
-
-/** Scroll position where the 3D tour lands on the design stage. */
-export const designScrollY = () => {
-  const el = document.getElementById("tour");
-  return el ? el.offsetTop + window.innerHeight * 5 + 4 : 0;
-};

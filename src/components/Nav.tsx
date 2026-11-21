@@ -80,7 +80,6 @@ export default function Nav() {
                 Shop <ChevronDown className={`size-3.5 transition-transform ${mega ? "rotate-180" : ""}`} />
               </button>
               {CATEGORIES.slice(0, 4).map((c) => <Link key={c.slug} href={`/shop/${c.slug}`} className={link}>{c.short}</Link>)}
-              <Link href="/visualizer" className={link}>3D Visualizer</Link>
             </div>
 
             <div className="flex items-center gap-1">
@@ -146,7 +145,6 @@ export default function Nav() {
                 </div>
               </details>
             ))}
-            <Link href="/visualizer" onClick={() => setSheet(false)} className="border-b border-line py-4 text-[20px] font-light">3D Visualizer</Link>
           </div>
           <Link href="/#visit" onClick={() => setSheet(false)} className="mt-auto inline-flex h-14 shrink-0 items-center justify-center gap-2 rounded-2xl bg-ink text-paper">Book a measure <ArrowUpRight className="size-4" /></Link>
         </div>

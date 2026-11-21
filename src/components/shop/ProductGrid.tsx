@@ -10,15 +10,14 @@ const SORTS = { featured: "Featured", low: "Price: low to high", high: "Price: h
 export default function ProductGrid({ products }: { products: Product[] }) {
   const colours = useMemo(() => [...new Set(products.map((p) => p.colour))].sort(), [products]);
   const [colour, setColour] = useState<string | null>(null);
-  const [only3d, setOnly3d] = useState(false);
   const [sort, setSort] = useState<keyof typeof SORTS>("featured");
 
   const list = useMemo(() => {
-    const l = products.filter((p) => (!colour || p.colour === colour) && (!only3d || p.finish));
+    const l = products.filter((p) => !colour || p.colour === colour);
     if (sort === "low") l.sort((a, b) => a.price - b.price);
     if (sort === "high") l.sort((a, b) => b.price - a.price);
     return l;
-  }, [products, colour, only3d, sort]);
+  }, [products, colour, sort]);
 
   const chip = (on: boolean) => `h-9 shrink-0 rounded-full border px-3.5 text-[13px] transition ${on ? "border-ink bg-ink text-paper" : "border-line bg-paper text-ink-2 hover:border-ink-2"}`;
 
@@ -29,7 +28,6 @@ export default function ProductGrid({ products }: { products: Product[] }) {
           <SlidersHorizontal className="mr-1 size-4 shrink-0 text-muted" />
           <button className={chip(!colour)} onClick={() => setColour(null)}>All colours</button>
           {colours.map((c) => <button key={c} className={chip(colour === c)} onClick={() => setColour(colour === c ? null : c)}>{c}</button>)}
-          <button className={chip(only3d)} onClick={() => setOnly3d(!only3d)} aria-pressed={only3d}>Try in 3D</button>
         </div>
         <label className="flex items-center gap-2 text-[13px] text-muted">
           Sort
@@ -44,7 +42,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
           {list.map((p) => <ProductCard key={p.slug} p={p} />)}
         </div>
       ) : (
-        <p className="py-20 text-center text-ink-2">Nothing matches those filters. <button className="underline" onClick={() => { setColour(null); setOnly3d(false); }}>Clear filters</button></p>
+        <p className="py-20 text-center text-ink-2">Nothing matches those filters. <button className="underline" onClick={() => { setColour(null); }}>Clear filters</button></p>
       )}
     </div>
   );

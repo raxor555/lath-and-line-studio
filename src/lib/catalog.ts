@@ -1,4 +1,4 @@
-/* Store catalogue. Prices are placeholders in PKR. `finish` links a product to its 3D finish in the visualizer. */
+/* Store catalogue. Prices are placeholders in PKR. */
 
 export type Sub = { slug: string; name: string; blurb: string; img: string };
 export type Category = { slug: string; name: string; short: string; blurb: string; img: string; subs: Sub[] };
@@ -8,7 +8,7 @@ export type Product = {
   size: string; material: string; colour: string; swatch: string;
   /** metres of wall width one unit covers, for the quantity calculator */
   cover?: number;
-  finish?: string; badge?: "Bestseller" | "New" | "Made in Karachi";
+  badge?: "Bestseller" | "New" | "Made in Karachi";
   desc: string;
 };
 
@@ -81,16 +81,16 @@ const p = (x: Omit<Product, "desc"> & { desc?: string }): Product => ({ desc: ""
 
 export const PRODUCTS: Product[] = [
   // PVC — fluted
-  p({ slug: "fluted-chalk-white", name: "Fluted Panel, Chalk White", category: "pvc-panels", sub: "fluted", price: 1450, unit: "panel", size: "160 × 2900 × 22 mm", material: "PVC", colour: "White", swatch: flute("#f5f2ec", "#d6d0c6"), cover: 0.16, finish: "fluted-chalk", badge: "Bestseller" }),
-  p({ slug: "fluted-charcoal", name: "Fluted Panel, Charcoal", category: "pvc-panels", sub: "fluted", price: 1550, unit: "panel", size: "160 × 2900 × 22 mm", material: "PVC", colour: "Black", swatch: flute("#4b4c4b", "#1f201f"), cover: 0.16, finish: "fluted-charcoal" }),
-  p({ slug: "fluted-sand", name: "Fluted Panel, Sand", category: "pvc-panels", sub: "fluted", price: 1450, unit: "panel", size: "160 × 2900 × 22 mm", material: "PVC", colour: "Beige", swatch: flute("#d8c5ac", "#a68f77"), cover: 0.16, finish: "fluted-sand" }),
+  p({ slug: "fluted-chalk-white", name: "Fluted Panel, Chalk White", category: "pvc-panels", sub: "fluted", price: 1450, unit: "panel", size: "160 × 2900 × 22 mm", material: "PVC", colour: "White", swatch: flute("#f5f2ec", "#d6d0c6"), cover: 0.16, badge: "Bestseller" }),
+  p({ slug: "fluted-charcoal", name: "Fluted Panel, Charcoal", category: "pvc-panels", sub: "fluted", price: 1550, unit: "panel", size: "160 × 2900 × 22 mm", material: "PVC", colour: "Black", swatch: flute("#4b4c4b", "#1f201f"), cover: 0.16 }),
+  p({ slug: "fluted-sand", name: "Fluted Panel, Sand", category: "pvc-panels", sub: "fluted", price: 1450, unit: "panel", size: "160 × 2900 × 22 mm", material: "PVC", colour: "Beige", swatch: flute("#d8c5ac", "#a68f77"), cover: 0.16 }),
   p({ slug: "fluted-teak", name: "Fluted Panel, Teak", category: "pvc-panels", sub: "fluted", price: 1650, unit: "panel", size: "160 × 2900 × 22 mm", material: "PVC", colour: "Wood", swatch: flute("#a87a52", "#6e4a2e"), cover: 0.16, badge: "New" }),
   // PVC — half-round
   p({ slug: "half-round-ivory", name: "Half-Round Panel, Ivory", category: "pvc-panels", sub: "half-round", price: 1850, unit: "panel", size: "120 × 2900 × 30 mm", material: "PVC", colour: "White", swatch: flute("#efe9de", "#c9c0b1"), cover: 0.12 }),
   p({ slug: "half-round-graphite", name: "Half-Round Panel, Graphite", category: "pvc-panels", sub: "half-round", price: 1950, unit: "panel", size: "120 × 2900 × 30 mm", material: "PVC", colour: "Grey", swatch: flute("#6b6c6d", "#3b3c3d"), cover: 0.12 }),
   // PVC — louver
-  p({ slug: "louver-walnut", name: "Louver Panel, Walnut", category: "pvc-panels", sub: "louver", price: 2250, unit: "panel", size: "195 × 2900 × 12 mm", material: "PVC", colour: "Wood", swatch: slat("#6b4b37"), cover: 0.195, finish: "slat-walnut", badge: "Bestseller" }),
-  p({ slug: "louver-oak", name: "Louver Panel, Light Oak", category: "pvc-panels", sub: "louver", price: 2250, unit: "panel", size: "195 × 2900 × 12 mm", material: "PVC", colour: "Wood", swatch: slat("#c49a6c"), cover: 0.195, finish: "slat-oak" }),
+  p({ slug: "louver-walnut", name: "Louver Panel, Walnut", category: "pvc-panels", sub: "louver", price: 2250, unit: "panel", size: "195 × 2900 × 12 mm", material: "PVC", colour: "Wood", swatch: slat("#6b4b37"), cover: 0.195, badge: "Bestseller" }),
+  p({ slug: "louver-oak", name: "Louver Panel, Light Oak", category: "pvc-panels", sub: "louver", price: 2250, unit: "panel", size: "195 × 2900 × 12 mm", material: "PVC", colour: "Wood", swatch: slat("#c49a6c"), cover: 0.195 }),
   p({ slug: "louver-concrete", name: "Louver Panel, Concrete Grey", category: "pvc-panels", sub: "louver", price: 2150, unit: "panel", size: "195 × 2900 × 12 mm", material: "PVC", colour: "Grey", swatch: slat("#9a9893"), cover: 0.195 }),
   // PVC — 3D
   p({ slug: "3d-wave-white", name: "3D Wave Panel, Paintable White", category: "pvc-panels", sub: "3d-wave", price: 950, unit: "panel", size: "500 × 500 mm", material: "PVC", colour: "White", swatch: "repeating-radial-gradient(circle at 0 50%,#f4f1ec 0 6px,#d9d3c9 9px,#f4f1ec 12px)", cover: 0.5 }),
@@ -101,29 +101,29 @@ export const PRODUCTS: Product[] = [
   p({ slug: "ceiling-linear-white", name: "Linear Ceiling Panel, White", category: "pvc-panels", sub: "ceiling", price: 690, unit: "panel", size: "200 × 5950 × 8 mm", material: "PVC", colour: "White", swatch: "repeating-linear-gradient(0deg,#f6f4f0 0 18px,#dcd7cf 18px 20px)" }),
   p({ slug: "ceiling-linear-teak", name: "Linear Ceiling Panel, Teak", category: "pvc-panels", sub: "ceiling", price: 790, unit: "panel", size: "200 × 5950 × 8 mm", material: "PVC", colour: "Wood", swatch: "repeating-linear-gradient(0deg,#a87a52 0 18px,#6e4a2e 18px 20px)" }),
   // WPC
-  p({ slug: "wpc-slat-natural-oak", name: "WPC Slat Panel, Natural Oak", category: "wpc", sub: "indoor-slats", price: 6900, unit: "panel", size: "600 × 3000 mm", material: "WPC", colour: "Wood", swatch: slat("#c49a6c"), cover: 0.6, finish: "slat-oak", badge: "Bestseller" }),
-  p({ slug: "wpc-slat-smoked-walnut", name: "WPC Slat Panel, Smoked Walnut", category: "wpc", sub: "indoor-slats", price: 7400, unit: "panel", size: "600 × 3000 mm", material: "WPC", colour: "Wood", swatch: slat("#6b4b37"), cover: 0.6, finish: "slat-walnut" }),
+  p({ slug: "wpc-slat-natural-oak", name: "WPC Slat Panel, Natural Oak", category: "wpc", sub: "indoor-slats", price: 6900, unit: "panel", size: "600 × 3000 mm", material: "WPC", colour: "Wood", swatch: slat("#c49a6c"), cover: 0.6, badge: "Bestseller" }),
+  p({ slug: "wpc-slat-smoked-walnut", name: "WPC Slat Panel, Smoked Walnut", category: "wpc", sub: "indoor-slats", price: 7400, unit: "panel", size: "600 × 3000 mm", material: "WPC", colour: "Wood", swatch: slat("#6b4b37"), cover: 0.6 }),
   p({ slug: "wpc-slat-black", name: "WPC Slat Panel, Matte Black", category: "wpc", sub: "indoor-slats", price: 7200, unit: "panel", size: "600 × 3000 mm", material: "WPC", colour: "Black", swatch: slat("#2a2927"), cover: 0.6 }),
-  p({ slug: "acoustic-oak-felt", name: "Acoustic Panel, Oak on Black Felt", category: "wpc", sub: "acoustic", price: 8900, unit: "panel", size: "600 × 2400 × 21 mm", material: "WPC + PET felt", colour: "Wood", swatch: slat("#c49a6c"), cover: 0.6, finish: "slat-oak" }),
-  p({ slug: "acoustic-walnut-felt", name: "Acoustic Panel, Walnut on Black Felt", category: "wpc", sub: "acoustic", price: 9400, unit: "panel", size: "600 × 2400 × 21 mm", material: "WPC + PET felt", colour: "Wood", swatch: slat("#6b4b37"), cover: 0.6, finish: "slat-walnut" }),
+  p({ slug: "acoustic-oak-felt", name: "Acoustic Panel, Oak on Black Felt", category: "wpc", sub: "acoustic", price: 8900, unit: "panel", size: "600 × 2400 × 21 mm", material: "WPC + PET felt", colour: "Wood", swatch: slat("#c49a6c"), cover: 0.6 }),
+  p({ slug: "acoustic-walnut-felt", name: "Acoustic Panel, Walnut on Black Felt", category: "wpc", sub: "acoustic", price: 9400, unit: "panel", size: "600 × 2400 × 21 mm", material: "WPC + PET felt", colour: "Wood", swatch: slat("#6b4b37"), cover: 0.6 }),
   p({ slug: "cladding-teak", name: "Outdoor Cladding, Teak", category: "wpc", sub: "outdoor-cladding", price: 2950, unit: "panel", size: "219 × 2900 × 26 mm", material: "Co-extruded WPC", colour: "Wood", swatch: slat("#9a6a42"), cover: 0.219 }),
   p({ slug: "cladding-anthracite", name: "Outdoor Cladding, Anthracite", category: "wpc", sub: "outdoor-cladding", price: 2950, unit: "panel", size: "219 × 2900 × 26 mm", material: "Co-extruded WPC", colour: "Grey", swatch: slat("#4a4b4c"), cover: 0.219 }),
   p({ slug: "decking-coffee", name: "Decking Board, Coffee", category: "wpc", sub: "decking", price: 3400, unit: "piece", size: "140 × 2900 × 25 mm", material: "WPC", colour: "Wood", swatch: "repeating-linear-gradient(0deg,#6e4c35 0 22px,#3e2a1d 22px 24px)" }),
   // Marble
-  p({ slug: "uv-marble-statuario", name: "UV Marble Sheet, Statuario", category: "marble-sheets", sub: "high-gloss", price: 5800, unit: "sheet", size: "1220 × 2440 × 3 mm", material: "PVC + UV coat", colour: "White", swatch: "url(/textures/marble_statuario/diff.jpg) center/cover", cover: 1.22, finish: "marble-statuario", badge: "Bestseller" }),
-  p({ slug: "uv-marble-nero", name: "UV Marble Sheet, Nero Marquina", category: "marble-sheets", sub: "high-gloss", price: 6200, unit: "sheet", size: "1220 × 2440 × 3 mm", material: "PVC + UV coat", colour: "Black", swatch: "url(/textures/marble_nero/diff.jpg) center/cover", cover: 1.22, finish: "marble-nero" }),
-  p({ slug: "uv-marble-travertine", name: "Satin Sheet, Travertine", category: "marble-sheets", sub: "matte", price: 5600, unit: "sheet", size: "1220 × 2440 × 3 mm", material: "PVC", colour: "Beige", swatch: "url(/textures/travertine/diff.jpg) center/cover", cover: 1.22 }),
-  p({ slug: "book-matched-calacatta", name: "Book-Matched Pair, Calacatta", category: "marble-sheets", sub: "book-matched", price: 12900, unit: "sheet", size: "2 × 1220 × 2440 mm", material: "PVC + UV coat", colour: "White", swatch: "url(/textures/marble_statuario/diff.jpg) center/180%", cover: 2.44, finish: "marble-statuario", badge: "New" }),
+  p({ slug: "uv-marble-statuario", name: "UV Marble Sheet, Statuario", category: "marble-sheets", sub: "high-gloss", price: 5800, unit: "sheet", size: "1220 × 2440 × 3 mm", material: "PVC + UV coat", colour: "White", swatch: "url(/swatches/marble_statuario.jpg) center/cover", cover: 1.22, badge: "Bestseller" }),
+  p({ slug: "uv-marble-nero", name: "UV Marble Sheet, Nero Marquina", category: "marble-sheets", sub: "high-gloss", price: 6200, unit: "sheet", size: "1220 × 2440 × 3 mm", material: "PVC + UV coat", colour: "Black", swatch: "url(/swatches/marble_nero.jpg) center/cover", cover: 1.22 }),
+  p({ slug: "uv-marble-travertine", name: "Satin Sheet, Travertine", category: "marble-sheets", sub: "matte", price: 5600, unit: "sheet", size: "1220 × 2440 × 3 mm", material: "PVC", colour: "Beige", swatch: "url(/swatches/travertine.jpg) center/cover", cover: 1.22 }),
+  p({ slug: "book-matched-calacatta", name: "Book-Matched Pair, Calacatta", category: "marble-sheets", sub: "book-matched", price: 12900, unit: "sheet", size: "2 × 1220 × 2440 mm", material: "PVC + UV coat", colour: "White", swatch: "url(/swatches/marble_statuario.jpg) center/180%", cover: 2.44, badge: "New" }),
   // Jaali
-  p({ slug: "jaali-shalimar-walnut", name: "Jaali Sheet, Shalimar Walnut", category: "jaali", sub: "mdf-jaali", price: 14500, unit: "sheet", size: "1220 × 2440 × 12 mm", material: "MDF, walnut veneer", colour: "Wood", swatch: "radial-gradient(circle,#f3cf9c 30%,#5b3d2b 32% 40%,#f3cf9c 42%) 0 0/16px 16px", cover: 1.22, finish: "jaali-shalimar", badge: "Made in Karachi" }),
-  p({ slug: "jaali-mughal-ivory", name: "Jaali Sheet, Mughal Ivory", category: "jaali", sub: "mdf-jaali", price: 12900, unit: "sheet", size: "1220 × 2440 × 12 mm", material: "MDF, lacquered", colour: "White", swatch: "radial-gradient(circle,#b98a5c 30%,#f4eee4 32% 40%,#b98a5c 42%) 0 0/16px 16px", cover: 1.22, finish: "jaali-ivory", badge: "Made in Karachi" }),
+  p({ slug: "jaali-shalimar-walnut", name: "Jaali Sheet, Shalimar Walnut", category: "jaali", sub: "mdf-jaali", price: 14500, unit: "sheet", size: "1220 × 2440 × 12 mm", material: "MDF, walnut veneer", colour: "Wood", swatch: "radial-gradient(circle,#f3cf9c 30%,#5b3d2b 32% 40%,#f3cf9c 42%) 0 0/16px 16px", cover: 1.22, badge: "Made in Karachi" }),
+  p({ slug: "jaali-mughal-ivory", name: "Jaali Sheet, Mughal Ivory", category: "jaali", sub: "mdf-jaali", price: 12900, unit: "sheet", size: "1220 × 2440 × 12 mm", material: "MDF, lacquered", colour: "White", swatch: "radial-gradient(circle,#b98a5c 30%,#f4eee4 32% 40%,#b98a5c 42%) 0 0/16px 16px", cover: 1.22, badge: "Made in Karachi" }),
   p({ slug: "jaali-pvc-white", name: "PVC Jaali, Star Lattice White", category: "jaali", sub: "pvc-jaali", price: 8900, unit: "sheet", size: "1220 × 2440 × 8 mm", material: "PVC foam board", colour: "White", swatch: "radial-gradient(circle,#cfc9bf 30%,#f7f5f1 32% 40%,#cfc9bf 42%) 0 0/14px 14px", cover: 1.22 }),
   p({ slug: "divider-oak-slat", name: "Slat Room Divider, Oak", category: "jaali", sub: "dividers", price: 24500, unit: "piece", size: "900 × 2700 mm, framed", material: "Solid wood + WPC", colour: "Wood", swatch: slat("#c49a6c") }),
   // Wallpaper & adhesive
   p({ slug: "wallpaper-damask-champagne", name: "Wallpaper, Damask Champagne", category: "wallpaper", sub: "wallpaper", price: 3200, unit: "roll", size: "0.53 × 10 m roll", material: "Non-woven", colour: "Beige", swatch: solid("#d9c8ad", "#b9a587"), cover: 0.53 }),
   p({ slug: "wallpaper-linen-stone", name: "Wallpaper, Linen Stone", category: "wallpaper", sub: "wallpaper", price: 2900, unit: "roll", size: "0.53 × 10 m roll", material: "Non-woven", colour: "Grey", swatch: solid("#cdc8bf", "#aaa49a"), cover: 0.53 }),
-  p({ slug: "adhesive-terrazzo", name: "Adhesive Sheet, Terrazzo", category: "wallpaper", sub: "adhesive-sheets", price: 950, unit: "roll", size: "0.6 × 3 m roll", material: "Self-adhesive vinyl", colour: "White", swatch: "url(/textures/terrazzo/diff.jpg) center/160%", cover: 0.6, finish: "adh-terrazzo" }),
-  p({ slug: "adhesive-sage-linen", name: "Adhesive Sheet, Sage Linen", category: "wallpaper", sub: "adhesive-sheets", price: 850, unit: "roll", size: "0.6 × 3 m roll", material: "Self-adhesive vinyl", colour: "Green", swatch: solid("#a3ae95", "#8b977e"), cover: 0.6, finish: "adh-sage" }),
+  p({ slug: "adhesive-terrazzo", name: "Adhesive Sheet, Terrazzo", category: "wallpaper", sub: "adhesive-sheets", price: 950, unit: "roll", size: "0.6 × 3 m roll", material: "Self-adhesive vinyl", colour: "White", swatch: "url(/swatches/terrazzo.jpg) center/160%", cover: 0.6 }),
+  p({ slug: "adhesive-sage-linen", name: "Adhesive Sheet, Sage Linen", category: "wallpaper", sub: "adhesive-sheets", price: 850, unit: "roll", size: "0.6 × 3 m roll", material: "Self-adhesive vinyl", colour: "Green", swatch: solid("#a3ae95", "#8b977e"), cover: 0.6 }),
   // Accessories
   p({ slug: "trim-end-cap-black", name: "Panel End Cap, Matte Black", category: "accessories", sub: "trims", price: 450, unit: "piece", size: "2900 mm", material: "Aluminium", colour: "Black", swatch: solid("#2a2927", "#111") }),
   p({ slug: "trim-corner-gold", name: "Outside Corner Trim, Brushed Gold", category: "accessories", sub: "trims", price: 650, unit: "piece", size: "2900 mm", material: "Aluminium", colour: "Gold", swatch: solid("#d8bd85", "#a8894e") }),

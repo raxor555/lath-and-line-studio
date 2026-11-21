@@ -12,7 +12,7 @@ const nastaliq = Noto_Nastaliq_Urdu({ variable: "--font-nastaliq", subsets: ["ar
 
 export const metadata: Metadata = {
   title: "Lath & Line · Wall panels, delivered all over Pakistan",
-  description: "Fluted PVC panels, WPC acoustic slats, UV marble sheets and adhesive finishes. Walk into the house and try them on a real wall.",
+  description: "Fluted PVC panels, WPC acoustic slats, UV marble sheets and adhesive finishes. Fitted in Karachi, delivered all over Pakistan.",
 };
 
 export const viewport: Viewport = { themeColor: "#eeeae4", viewportFit: "cover" };

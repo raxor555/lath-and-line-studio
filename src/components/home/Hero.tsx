@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Box } from "lucide-react";
+import { ArrowUpRight, Ruler } from "lucide-react";
 
-/* The home hero is a photograph, so the shop opens instantly on any phone; the 3D lives on /visualizer. */
+/* The home hero is a photograph, so the shop opens instantly on any phone. */
 export default function Hero() {
   return (
     <section className="px-3 pt-[113px]">
@@ -20,17 +20,17 @@ export default function Hero() {
               <Link href="/shop" className="inline-flex h-[52px] items-center gap-2 rounded-2xl bg-white pl-5 pr-4 text-[15px] font-medium text-ink transition hover:bg-paper">
                 Shop all products <ArrowUpRight className="size-4" />
               </Link>
-              <Link href="/visualizer" className="inline-flex h-[52px] items-center gap-2 rounded-2xl border border-white/60 px-5 text-[15px] font-medium text-white transition hover:bg-white/15">
-                <Box className="size-4" /> Open 3D visualizer
+              <Link href="/#visit" className="inline-flex h-[52px] items-center gap-2 rounded-2xl border border-white/60 px-5 text-[15px] font-medium text-white transition hover:bg-white/15">
+                <Ruler className="size-4" /> Book a free measure
               </Link>
             </div>
           </div>
 
-          {/* the visualizer, introduced rather than loaded */}
-          <Link href="/visualizer" className="glass-dark group hidden w-[340px] rounded-3xl p-5 text-white transition hover:bg-black/40 lg:block">
-            <p className="font-mono text-[11px] text-white/60">3D visualizer</p>
-            <p className="mt-2 text-[20px] font-light leading-snug tracking-[-0.02em]">Walk into a photoreal room and try any finish on its walls.</p>
-            <p className="mt-3 inline-flex items-center gap-1.5 text-[13px] text-white/75 group-hover:text-white">Downloads once, then opens instantly <ArrowUpRight className="size-3.5" /></p>
+          {/* what is on the wall in the photo, linked to the products */}
+          <Link href="/shop/wpc" className="glass-dark group hidden w-[340px] rounded-3xl p-5 text-white transition hover:bg-black/40 lg:block">
+            <p className="font-mono text-[11px] text-white/60">In this room</p>
+            <p className="mt-2 text-[20px] font-light leading-snug tracking-[-0.02em]">Walnut WPC slats around a book-matched marble sheet.</p>
+            <p className="mt-3 inline-flex items-center gap-1.5 text-[13px] text-white/75 group-hover:text-white">Shop the look <ArrowUpRight className="size-3.5" /></p>
           </Link>
         </div>
       </div>

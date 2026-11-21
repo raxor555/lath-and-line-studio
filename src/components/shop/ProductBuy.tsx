@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Box, Check, Minus, Plus, Ruler } from "lucide-react";
+import { Check, Minus, Plus, Ruler } from "lucide-react";
 import { pkr, type Product } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 
@@ -52,13 +52,8 @@ export default function ProductBuy({ p }: { p: Product }) {
       </div>
 
       <div className="grid gap-2 sm:grid-cols-2">
-        {p.finish && (
-          <Link href={`/visualizer?finish=${p.finish}`} className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-ink text-[14px] font-medium">
-            <Box className="size-4" /> See it on a wall in 3D
-          </Link>
-        )}
         <a href={whatsapp(`Assalam o Alaikum, I'd like to order ${qty} × ${p.name}.`)} target={WHATSAPP_NUMBER ? "_blank" : undefined} rel="noreferrer"
-          className={`inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-[#25D366] text-[14px] font-medium text-[#0b2b17] ${p.finish ? "" : "sm:col-span-2"}`}>
+          className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-[#25D366] text-[14px] font-medium text-[#0b2b17] sm:col-span-2">
           Order on WhatsApp
         </a>
       </div>

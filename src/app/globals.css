@@ -115,32 +115,3 @@ input[type="range"].range::-moz-range-thumb {
   }
 }
 
-/* loader: slats rise into place, a band of sun sweeps across, product names cycle.
-   transform/opacity only, so the compositor runs them even while the main thread builds the 3D */
-.ll-slat {
-  transform: scaleY(0);
-  transform-origin: bottom;
-  animation: ll-rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  will-change: transform;
-}
-@keyframes ll-rise { to { transform: scaleY(1); } }
-.ll-sheen {
-  animation: ll-sheen 2.6s ease-in-out 1s infinite;
-  will-change: transform;
-}
-@keyframes ll-sheen { from { transform: translateX(0); } to { transform: translateX(420%); } }
-.ll-cycle {
-  opacity: 0;
-  transform: translateY(100%);
-  animation: ll-cycle 6.4s ease-in-out infinite;
-}
-@keyframes ll-cycle {
-  0% { opacity: 0; transform: translateY(100%); }
-  5%, 22% { opacity: 1; transform: translateY(0); }
-  27%, 100% { opacity: 0; transform: translateY(-100%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ll-slat { animation: none; transform: none; }
-  .ll-sheen, .ll-cycle { animation: none; }
-  .ll-cycle:first-child { opacity: 1; transform: none; }
-}

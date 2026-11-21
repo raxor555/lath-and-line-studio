@@ -27,10 +27,10 @@ function Star({ className = "" }: { className?: string }) {
 }
 
 const ROOMS = [
-  { title: "Apartment, DHA Karachi", tag: "Walnut slats · Statuario sheet", img: "/photos/room-walnut.jpg", alt: "Living room with a walnut wall and marble fireplace surround", try: "slat-walnut", cta: "Try walnut slats" },
-  { title: "Media wall, Clifton, Karachi", tag: "Oak WPC panels", img: "/photos/room-tv-oak.jpg", alt: "Oak panelled TV wall with a low console", try: "slat-oak", cta: "Try oak slats" },
-  { title: "Open-plan living, F-7 Islamabad", tag: "Statuario sheet · Oak slats", img: "/photos/room-marble-slat.jpg", alt: "Living room with a marble shelving wall and slatted TV wall", try: "marble-statuario", cta: "Try Statuario" },
-  { title: "Entrance hall, Bahria Town Karachi", tag: "Oak slat divider", img: "/photos/room-divider.jpg", alt: "Hallway with oak slat dividers and a hidden door", try: "slat-oak", cta: "Try oak slats" },
+  { title: "Apartment, DHA Karachi", tag: "Walnut slats · Statuario sheet", img: "/photos/room-walnut.jpg", alt: "Living room with a walnut wall and marble fireplace surround", href: "/product/wpc-slat-smoked-walnut", cta: "Shop walnut slats" },
+  { title: "Media wall, Clifton, Karachi", tag: "Oak WPC panels", img: "/photos/room-tv-oak.jpg", alt: "Oak panelled TV wall with a low console", href: "/product/wpc-slat-natural-oak", cta: "Shop oak slats" },
+  { title: "Open-plan living, F-7 Islamabad", tag: "Statuario sheet · Oak slats", img: "/photos/room-marble-slat.jpg", alt: "Living room with a marble shelving wall and slatted TV wall", href: "/product/uv-marble-statuario", cta: "Shop Statuario" },
+  { title: "Entrance hall, Bahria Town Karachi", tag: "Oak slat divider", img: "/photos/room-divider.jpg", alt: "Hallway with oak slat dividers and a hidden door", href: "/shop/wpc", cta: "Shop WPC slats" },
 ];
 
 function Arrow() {
@@ -100,7 +100,7 @@ export default function Sections() {
       <section id="rooms" className="overflow-hidden bg-paper">
         <div className="mx-auto flex max-w-[1400px] flex-wrap items-end justify-between gap-6 px-6 pb-12 pt-28 sm:px-10">
           <h2 className="text-[clamp(2.4rem,4.8vw,4.8rem)] font-light leading-[0.98] tracking-[-0.045em]">Rooms we&apos;ve finished.</h2>
-          <p className="max-w-[26rem] text-ink-2">Real installs, with the finishes used. Tap one to try it on the wall in the house above.</p>
+          <p className="max-w-[26rem] text-ink-2">Real installs, with the finishes used. Tap one to shop that finish.</p>
         </div>
         <div data-lenis-prevent-touch className="no-scrollbar overflow-x-auto max-[899px]:snap-x max-[899px]:snap-mandatory min-[900px]:overflow-visible">
           <div className="rooms-track flex w-max gap-4 px-6 pb-28 sm:px-10">
@@ -112,7 +112,7 @@ export default function Sections() {
                 </div>
                 <div className="mt-4 flex items-baseline justify-between gap-4">
                   <h3 className="text-[26px] font-light tracking-[-0.03em]">{r.title}</h3>
-                  <Link href={r.try ? `/visualizer?finish=${r.try}` : "/visualizer"} className="shrink-0 border-b border-ink pb-0.5 text-[14px] font-medium">{r.cta}</Link>
+                  <Link href={r.href} className="shrink-0 border-b border-ink pb-0.5 text-[14px] font-medium">{r.cta}</Link>
                 </div>
               </article>
             ))}
@@ -128,7 +128,7 @@ export default function Sections() {
           {CITIES.map((c) => <span key={c} className="inline-flex items-center gap-2"><Star className="size-2.5 text-clay" />{c}</span>)}
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {[["Choose", "Browse by material or by room, then order up to three free samples."], ["Visualize", "Try finishes on the wall in the house above, or send us a photo of yours."], ["Measure", "We visit, confirm the measurements and send one price for material, trims and fitting. Pay by cash on delivery, bank transfer, JazzCash or Easypaisa."], ["Fit", "Our team fits most walls in a single day and clears up before leaving."]].map(([t, d], i) => (
+          {[["Choose", "Browse by material or by room, then order up to three free samples."], ["Preview", "Send us a photo of your wall on WhatsApp and we mark up the finishes on it for you."], ["Measure", "We visit, confirm the measurements and send one price for material, trims and fitting. Pay by cash on delivery, bank transfer, JazzCash or Easypaisa."], ["Fit", "Our team fits most walls in a single day and clears up before leaving."]].map(([t, d], i) => (
             <div key={t} className="flex min-h-[260px] flex-col justify-between rounded-[26px] bg-paper p-7">
               <span className="font-mono text-[12px] text-clay">0{i + 1}</span>
               <div><h3 className="text-[32px] font-light tracking-[-0.03em]">{t}</h3><p className="mt-2 text-ink-2">{d}</p></div>
@@ -148,7 +148,7 @@ export default function Sections() {
               <p lang="ur" dir="rtl" className="mt-6 w-max max-w-full font-urdu text-[clamp(1.3rem,2.2vw,2rem)] leading-[2] text-paper/70">اپنی دیوار کی تصویر بھیجیں، باقی ہم پر چھوڑ دیں</p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="/visualizer" className="inline-flex h-[52px] items-center gap-2 rounded-2xl bg-paper pl-5 pr-4 font-medium text-ink">Open the visualizer <ArrowUpRight className="size-4" /></Link>
+              <Link href="/shop" className="inline-flex h-[52px] items-center gap-2 rounded-2xl bg-paper pl-5 pr-4 font-medium text-ink">Shop all products <ArrowUpRight className="size-4" /></Link>
               <a href={whatsapp("Assalam o Alaikum, I would like a quote for my wall.")} target={WHATSAPP_NUMBER ? "_blank" : undefined} rel="noreferrer" className="inline-flex h-[52px] items-center gap-2 rounded-2xl bg-[#25D366] px-5 font-medium text-[#0b2b17]">
                 <svg viewBox="0 0 24 24" className="size-[18px]" aria-hidden><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3z"/></svg>
                 Send it on WhatsApp

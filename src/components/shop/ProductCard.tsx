@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Box, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { categoryBySlug, pkr, type Product } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 
@@ -18,7 +18,6 @@ export default function ProductCard({ p }: { p: Product }) {
           <span className="absolute bottom-3 left-3 size-14 rounded-xl border-2 border-white shadow-lg transition-all duration-500 ease-[var(--ease-out-soft)] group-hover:size-24"
             style={{ background: p.swatch, backgroundSize: "cover" }} />
           {p.badge && <span className="absolute left-3 top-3 rounded-full bg-paper px-2.5 py-1 text-[11px] font-medium">{p.badge}</span>}
-          {p.finish && <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-ink/80 px-2.5 py-1 text-[11px] text-paper"><Box className="size-3" /> 3D</span>}
         </div>
         <div className="mt-3 px-1">
           <p className="font-mono text-[11px] text-muted">{sub?.name}</p>
