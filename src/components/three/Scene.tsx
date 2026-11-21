@@ -1,7 +1,7 @@
 "use client";
 
 import * as THREE from "three";
-import { Suspense, use, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { Suspense, use, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { create } from "zustand";
 import { Canvas, useFrame, useLoader, useThree, type RootState, type ThreeEvent } from "@react-three/fiber";
 import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js";
@@ -130,6 +130,8 @@ function Setup() {
   const { gl, invalidate, scene } = useThree();
   const sky = useTexture(LITE ? "/hdri/sky_golden_m.jpg" : "/hdri/sky_golden.jpg");
   useLayoutEffect(() => configureScene(gl, scene, sky, () => invalidate()), [gl, invalidate, scene, sky]);
+  // ?debug exposes the renderer for memory checks in the console: __ll.gl.info
+  useEffect(() => { if (flags.has("debug")) Object.assign(window, { __ll: { gl, scene } }); }, [gl, scene]);
   return null;
 }
 
@@ -276,7 +278,11 @@ const PLANTS = ["olive", "shrubB", "grassA", "grassB", "bushRound", "palm"] as c
 // Poly Haven ships these two shrubs at seedling size; bring them to garden-bush height (~0.9 m and ~1.3 m)
 const PLANT_SCALE: Partial<Record<(typeof PLANTS)[number], number>> = {};
 // the olive and the green shrub are drawn with their full-leaf web copies; Blender used thinned ones for the shadows
-const plantUrl = (k: (typeof PLANTS)[number]) => (k === "olive" ? "/models/olive_tree.glb" : `/models/veg_${k}.glb`);
+// phones get the light olive (~28k triangles instead of ~123k) and palm (15k instead of 38k): blender/plants_lite.py
+const plantUrl = (k: (typeof PLANTS)[number]) => {
+  const url = k === "olive" ? "/models/olive_tree.glb" : `/models/veg_${k}.glb`;
+  return k === "olive" || k === "palm" ? lite(url) : url;
+};
 type Placement = Record<(typeof PLANTS)[number], [number, number, number, number, number][]>;
 type Item = Placement[keyof Placement][number];
 let plantsP: Promise<Placement> | null = null;
@@ -354,20 +360,24 @@ function withForeground(place: Placement): Placement {
 }
 
 /** phones: Blender's planting only, every other grass clump */
+// phones never plant round bushes, so they never download them
+const KINDS = LITE ? PLANTS.filter((k) => k !== "bushRound") : [...PLANTS];
+
 function thinOut(place: Placement): Placement {
   const full = withForeground(place);
-  return { ...full, grassA: full.grassA.filter((_, i) => i % 2 === 0), grassB: full.grassB.filter((_, i) => i % 2 === 0), bushRound: full.bushRound.filter((_, i) => i % 2 === 0) };
+  // phones: about a third of the triangles of the desktop planting (round bushes are 27k triangles each)
+  return { ...full, grassA: full.grassA.filter((_, i) => i % 3 === 0), grassB: full.grassB.filter((_, i) => i % 8 === 0), shrubB: full.shrubB.filter((_, i) => i % 2 === 0), bushRound: [] };
 }
 
 function Landscape() {
   const place = use(plantsReady());
   const lite = useQuality((q) => q.tier < 0);
-  const gltfs = useGLTF(PLANTS.map(plantUrl), "/draco/");
+  const gltfs = useGLTF(KINDS.map(plantUrl), "/draco/");
   const group = useMemo(() => {
     const g = new THREE.Group(), all = lite ? { ...thinOut(place), bushRound: [] } : LITE ? thinOut(place) : withForeground(place);
     // ?no=bushLite,palm skips plant types (for performance testing)
     const skip = new Set((flags.get("no") ?? "").split(",").filter(Boolean));
-    PLANTS.forEach((k, i) => {
+    KINDS.forEach((k, i) => {
       if (skip.has(k)) return;
       const f = PLANT_SCALE[k] ?? 1;
       if (all[k]?.length) g.add(instancePlant(gltfs[i].scene, all[k].map(([x, y, z, sc, r]) => [x, y, z, sc * f, r] as Item)));
@@ -375,6 +385,15 @@ function Landscape() {
     return g;
   }, [place, gltfs, lite]);
   return <group ref={(g) => { landscapeRef.current = g; }}><primitive object={group} /></group>;
+}
+
+/* Phones: the plants load only after the house has drawn, so their downloads, Draco decoding and texture uploads
+   do not stack on top of the house's in one memory spike. */
+function LateLandscape() {
+  const ready = useTour((s) => s.ready);
+  const [go, setGo] = useState(false);
+  useEffect(() => { if (!ready) return; const t = setTimeout(() => setGo(true), 700); return () => clearTimeout(t); }, [ready]);
+  return go ? <Suspense fallback={null}><Landscape /></Suspense> : null;
 }
 
 const WALL_DEF: Record<WallId, { pos: [number, number, number]; rot: number; len: number; lining: [number, number, number] }> = {
@@ -429,10 +448,9 @@ function Wall({ id }: { id: WallId }) {
 /* Compile every shader and upload every texture while the loading veil is still up,
    so nothing stalls the first time the camera sees it (or the first time a finish is picked). */
 const TEX_KEYS = ["map", "normalMap", "roughnessMap", "metalnessMap", "aoMap", "alphaMap", "emissiveMap"] as const;
+/* Compile and upload only what is in the scene now. This used to build every finish in the catalogue up front, which
+   loaded and uploaded all their textures in the same burst as the house: the memory spike that crashed phones. */
 function prewarm(gl: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera) {
-  const tmp = new THREE.Group(); tmp.position.set(0, -50, 0);
-  for (const f of FINISHES) { const g = buildPanels({ pid: f.id, width: f.module * 2, center: 0, dir: "v" }); if (g) tmp.add(g); }
-  scene.add(tmp);
   scene.traverse((o) => {
     const mats = (o as THREE.Mesh).material; if (!mats) return;
     for (const m of Array.isArray(mats) ? mats : [mats]) for (const k of TEX_KEYS) {
@@ -441,7 +459,21 @@ function prewarm(gl: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Came
     }
   });
   gl.compile(scene, camera);
-  scene.remove(tmp); disposeTree(tmp);
+}
+const idle = (cb: () => void) => ("requestIdleCallback" in window ? window.requestIdleCallback(cb, { timeout: 3000 }) : globalThis.setTimeout(cb, 300));
+/* Desktop only, well after the page is up: compile the other finishes one at a time while the browser is idle, so the
+   first swap in the configurator has no shader hitch. Phones skip this; a finish loads when it is picked. */
+function prewarmFinishesLater(gl: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera) {
+  let i = 0, stop = false;
+  const step = () => {
+    if (stop || i >= FINISHES.length) return;
+    const f = FINISHES[i++];
+    const g = buildPanels({ pid: f.id, width: f.module * 2, center: 0, dir: "v" });
+    if (g) { g.position.set(0, -50, 0); scene.add(g); gl.compile(scene, camera); scene.remove(g); disposeTree(g); }
+    globalThis.setTimeout(() => idle(step), 400);
+  };
+  const t = globalThis.setTimeout(() => idle(step), 4000);
+  return () => { stop = true; clearTimeout(t); };
 }
 function Prewarm() {
   const { gl, scene, camera, invalidate } = useThree();
@@ -449,7 +481,8 @@ function Prewarm() {
     prewarm(gl, scene, camera); invalidate();
     // tell the page after the first real frame, so the poster never hands over to a half-drawn scene
     let raf = requestAnimationFrame(() => { raf = requestAnimationFrame(() => useTour.getState().setReady()); });
-    return () => cancelAnimationFrame(raf);
+    const later = LITE ? () => {} : prewarmFinishesLater(gl, scene, camera);
+    return () => { cancelAnimationFrame(raf); later(); };
   }, [gl, scene, camera, invalidate]);
   return null;
 }
@@ -500,7 +533,9 @@ export default function Scene() {
       camera={{ fov: 40, near: 0.05, far: 600, position: [8.6, 1.55, 16.5] }}
       // the renderer only tone-maps when drawing straight to the screen (tier 0);
       // with post-processing the ToneMapping effect does it instead
-      gl={{ antialias: true, powerPreference: "high-performance", stencil: false, toneMapping: THREE.AgXToneMapping }}
+      // MSAA only on phones (no post-processing there); on desktop SMAA in the composer anti-aliases, and a
+      // multisampled canvas would cost ~125 MB of GPU memory for nothing
+      gl={{ antialias: LITE, powerPreference: "high-performance", stencil: false, toneMapping: THREE.AgXToneMapping }}
       style={{ position: "absolute", inset: 0, touchAction: "pan-y" }}
     >
       <Suspense fallback={null}>
@@ -512,9 +547,10 @@ export default function Scene() {
         <Door />
         <Wall id="feature" />
         <Wall id="side" />
-        {!off("trees") && <Landscape />}
+        {!off("trees") && !LITE && <Landscape />}
         <Prewarm />
       </Suspense>
+      {!off("trees") && LITE && <LateLandscape />}
       <Rig />
       <DropTarget />
       {fx && <Effects />}
@@ -535,6 +571,6 @@ function Effects() {
   );
 }
 
-useGLTF.preload(["/models/olive_tree.glb", "/models/veg_shrubB.glb", "/models/veg_grassA.glb", "/models/veg_grassB.glb", "/models/veg_bushRound.glb", "/models/veg_palm.glb"], "/draco/");
+if (!LITE) useGLTF.preload(["/models/olive_tree.glb", "/models/veg_shrubB.glb", "/models/veg_grassA.glb", "/models/veg_grassB.glb", "/models/veg_bushRound.glb", "/models/veg_palm.glb"], "/draco/");
 useGLTF.preload("/models/house.glb", "/draco/");
 useGLTF.preload(lite("/models/furniture.glb"), "/draco/");
