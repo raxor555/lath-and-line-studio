@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { tex } from "./materials";
+import { lite, tex } from "./materials";
 import { ajrakTexture, rugTexture } from "./patterns";
 
 /* ---------------------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ function lightmap(key: string, group: Group) {
   if (!manifest[id]) {
     t = new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1); t.needsUpdate = true;
   } else {
-    t = loader.load(`/lightmaps/${id}.webp`, (l) => onReady(l));
+    t = loader.load(lite(`/lightmaps/${id}.webp`), (l) => onReady(l));
     // glTF UVs assume images are not flipped
     t.flipY = false;
     t.colorSpace = THREE.NoColorSpace;

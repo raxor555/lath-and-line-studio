@@ -13,7 +13,7 @@ import { tour, useTour } from "@/lib/tour-store";
 /** front door opening, matching the Blender model */
 const DOOR = { hingeX: -1.0, z: -0.12, width: 1.2, height: 2.62 };
 import { buildPanels, disposeTree } from "./panels";
-import { materials, setAnisotropy, setOnTextureLoad } from "./materials";
+import { LITE, lite, materials, setAnisotropy, setOnTextureLoad } from "./materials";
 import { GROUPS, LIGHTS, applyInteriorEnv, bakeUV1, bakeWall, houseMaterials, loadManifest, setLightmapReady } from "./baked";
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
@@ -56,7 +56,6 @@ const manifestReady = () => (manifestP ??= loadManifest());
    and the result is remembered so the next visit starts at the right level. */
 const QKEY = "ll-quality-v2";
 /** phones and small tablets: lightest tier, smaller sky, half the planting */
-const LITE = typeof window !== "undefined" && (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 820);
 // ?q=0|1|2 pins a tier (for testing) and turns the automatic drop off
 const pinned = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("q");
 // tiers: 2 full · 1 lighter post-fx · 0 no post-fx · -1 "lite": below 1x resolution and no round bushes
@@ -76,6 +75,36 @@ function samplePerf(dt: number) {
   if (fps < 50 && q.tier > -1 && pinned === null) { perf.skip = 45; q.drop(); }
 }
 
+/* The sky photo is drawn on a camera-centred sphere instead of scene.background: three.js converts an equirect
+   background into a cubemap as tall as the image (a 3072 px cube, ~300 MB of GPU memory on desktop, 1536 px on
+   phones), which is what pushed mobile browsers into killing the tab. The lookup matches three's background shader
+   (equirectUv of the rotated view direction), so it looks the same. No mipmaps: the sky is shown near 1:1. */
+const skyUniforms = { map: { value: null as THREE.Texture | null }, intensity: { value: 0.62 }, rot: { value: new THREE.Matrix3() } };
+function skyDome(sky: THREE.Texture) {
+  sky.generateMipmaps = false; sky.minFilter = THREE.LinearFilter;
+  skyUniforms.map.value = sky;
+  const e = new THREE.Euler(-BACKDROP_ROT.x, -BACKDROP_ROT.y, -BACKDROP_ROT.z, BACKDROP_ROT.order);
+  skyUniforms.rot.value.setFromMatrix4(new THREE.Matrix4().makeRotationFromEuler(e));
+  const mat = new THREE.ShaderMaterial({
+    uniforms: skyUniforms, side: THREE.BackSide, depthTest: false, depthWrite: false, fog: false,
+    vertexShader: `varying vec3 vDir;
+      void main() { vDir = (modelMatrix * vec4(position, 0.0)).xyz; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+    fragmentShader: `#include <common>
+      uniform sampler2D map; uniform float intensity; uniform mat3 rot; varying vec3 vDir;
+      void main() {
+        vec3 d = normalize(rot * vDir);
+        vec2 uv = vec2(atan(d.z, d.x) * RECIPROCAL_PI2 + 0.5, asin(clamp(d.y, -1.0, 1.0)) * RECIPROCAL_PI + 0.5);
+        gl_FragColor = vec4(texture2D(map, uv).rgb * intensity, 1.0);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }`,
+  });
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(100, 48, 24), mat);
+  dome.renderOrder = -1000; dome.frustumCulled = false; dome.name = "sky";
+  dome.onBeforeRender = (_r, _s, cam) => { dome.position.copy(cam.position); dome.updateMatrixWorld(); };
+  return dome;
+}
+
 /* Imperative three.js setup lives in plain functions: R3F objects are mutable by design. */
 function configureScene(gl: THREE.WebGLRenderer, scene: THREE.Scene, sky: THREE.Texture, invalidate: () => void) {
   setAnisotropy(gl.capabilities.getMaxAnisotropy());
@@ -87,10 +116,11 @@ function configureScene(gl: THREE.WebGLRenderer, scene: THREE.Scene, sky: THREE.
   tour.invalidate = invalidate;
   sky.mapping = THREE.EquirectangularReflectionMapping;
   sky.colorSpace = THREE.SRGBColorSpace;
-  scene.background = sky;
-  scene.backgroundRotation.copy(BACKDROP_ROT);
+  scene.background = null;
+  scene.getObjectByName("sky")?.removeFromParent();
+  scene.add(skyDome(sky));
   // the sky jpg is already tone-mapped, so it is dimmed before the composer's tone-mapping pass to keep its colour
-  scene.backgroundIntensity = 0.62;
+  skyUniforms.intensity.value = 0.62;
   // warm horizon haze so the far ground melts into the photographed veld
   scene.fog = new THREE.Fog(0xb9a88f, 60, 210);
   invalidate();
@@ -139,7 +169,7 @@ function stepRig(state: RootState, dt: number, c: RigCtx) {
     if (Math.abs(t - w.value) > 0.002) { w.value += (t - w.value) * (1 - Math.exp(-Math.min(dt, 0.1) * 7)); moving = true; } else w.value = t;
   }
   const day = LIGHTS.day.value;
-  state.scene.backgroundIntensity = lerp(0.03, 0.5, day);
+  skyUniforms.intensity.value = lerp(0.03, 0.5, day);
   if (moving) samplePerf(dt);
   state.scene.environmentIntensity = lerp(0.9, 0.5, smooth(0.42, 0.66, p)) * lerp(0.08, 1, day);
   tour.listeners.forEach((fn) => fn(p));
@@ -200,7 +230,7 @@ function InteriorReflections() {
 function House() {
   use(manifestReady());
   const house = useGLTF("/models/house.glb", "/draco/");
-  const furn = useGLTF("/models/furniture.glb", "/draco/");
+  const furn = useGLTF(lite("/models/furniture.glb"), "/draco/");
   const obj = useMemo(() => {
     const g = new THREE.Group();
     const h = house.scene.clone(true); prepareBaked(h, false); g.add(h);
@@ -507,4 +537,4 @@ function Effects() {
 
 useGLTF.preload(["/models/olive_tree.glb", "/models/veg_shrubB.glb", "/models/veg_grassA.glb", "/models/veg_grassB.glb", "/models/veg_bushRound.glb", "/models/veg_palm.glb"], "/draco/");
 useGLTF.preload("/models/house.glb", "/draco/");
-useGLTF.preload("/models/furniture.glb", "/draco/");
+useGLTF.preload(lite("/models/furniture.glb"), "/draco/");

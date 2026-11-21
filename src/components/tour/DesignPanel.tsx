@@ -53,7 +53,7 @@ export default function DesignPanel() {
   return (
     <div className={`absolute inset-0 transition-opacity duration-500 ${designOn ? "opacity-100" : "pointer-events-none opacity-0"}`} aria-hidden={!designOn}>
       {/* wall switch */}
-      <div className={`absolute left-4 top-[calc(env(safe-area-inset-top)+96px)] sm:left-8 ${designOn ? "pointer-events-auto" : ""}`}>
+      <div className={`absolute left-4 top-[var(--dp-top,calc(env(safe-area-inset-top)+96px))] sm:left-8 ${designOn ? "pointer-events-auto" : ""}`}>
         <h2 className="mb-3 hidden text-[clamp(1.8rem,2.6vw,2.6rem)] font-light leading-none tracking-[-0.035em] text-ink lg:block">Pick a wall. Pick a finish.</h2>
         <div className="glass inline-flex gap-1 rounded-2xl p-1" role="group" aria-label="Wall">
           {(Object.keys(WALLS) as WallId[]).map((id) => (
@@ -75,7 +75,7 @@ export default function DesignPanel() {
       </div>
 
       {/* estimate card */}
-      <aside data-lenis-prevent className={`glass absolute right-4 top-[calc(env(safe-area-inset-top)+96px)] w-[340px] overflow-auto rounded-3xl p-5 lg:max-h-[calc(100svh-env(safe-area-inset-top)-96px-210px)] max-lg:inset-x-4 max-lg:bottom-[226px] max-lg:top-auto max-lg:max-h-[36svh] max-lg:w-auto sm:right-8 ${designOn ? "pointer-events-auto" : ""}`} aria-label="Finish and estimate">
+      <aside data-lenis-prevent className={`glass absolute right-4 top-[var(--dp-top,calc(env(safe-area-inset-top)+96px))] w-[340px] overflow-auto rounded-3xl p-5 lg:max-h-[calc(100%-var(--dp-top,calc(env(safe-area-inset-top)+96px))-210px)] max-lg:inset-x-4 max-lg:bottom-[226px] max-lg:top-auto max-lg:max-h-[36svh] max-lg:w-auto sm:right-8 ${designOn ? "pointer-events-auto" : ""}`} aria-label="Finish and estimate">
         <p className="font-mono text-[12px] text-clay">{f ? f.collection : WALLS[active].label}</p>
         <h3 className="mt-1 text-[28px] font-light leading-tight tracking-[-0.03em]">{f ? f.name : "Plain plaster"}</h3>
         <p className="font-mono text-[12px] text-muted">{f ? `${f.size} · ${money(f.price)} / ${f.unit}` : "Choose a finish below"}</p>

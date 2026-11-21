@@ -1,5 +1,10 @@
 import * as THREE from "three";
 
+/** Phones and small tablets: load the half-size `_m` copies of every texture, lightmap and the furniture model.
+ *  Full-size assets need ~740 MB of GPU memory, past the point where mobile browsers kill the tab. */
+export const LITE = typeof window !== "undefined" && (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 820);
+export const lite = (path: string) => (LITE ? path.replace(/\.(jpg|webp|glb)$/, "_m.$1") : path);
+
 const loader = new THREE.TextureLoader();
 const cache = new Map<string, THREE.Texture>();
 let aniso = 8;
@@ -12,7 +17,7 @@ export function tex(path: string, { srgb = false, rot = 0 }: { srgb?: boolean; r
   const key = `${path}|${srgb}|${rot}`;
   const hit = cache.get(key);
   if (hit) return hit;
-  const t = loader.load(`/textures/${path}`, (l) => onLoad(l));
+  const t = loader.load(lite(`/textures/${path}`), (l) => onLoad(l));
   t.wrapS = t.wrapT = THREE.RepeatWrapping;
   t.anisotropy = aniso;
   if (srgb) t.colorSpace = THREE.SRGBColorSpace;
