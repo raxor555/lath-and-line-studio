@@ -5,9 +5,9 @@ import { Bestsellers, CategoryTiles, PvcRange } from "@/components/home/HomeShop
 export default function Home() {
   return (
     <>
-      {/* a photo hero, so the shop opens instantly on any device */}
+      {/* full-bleed film hero; the nav floats over it */}
       <Hero />
-      <div className="pt-20"><CategoryTiles /></div>
+      <div id="shop-start" className="scroll-mt-24 pt-24"><CategoryTiles /></div>
       <PvcRange />
       <Bestsellers />
       <Sections />

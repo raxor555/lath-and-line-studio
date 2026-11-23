@@ -115,3 +115,27 @@ input[type="range"].range::-moz-range-thumb {
   }
 }
 
+
+/* the hand-written accent (Mrs Saint Delafield, loaded in layout.tsx) */
+.font-script {
+  font-family: var(--font-script-face), cursive;
+}
+
+/* home hero: lines rise in once, the scroll arrow nudges */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.hero-rise {
+  animation: hero-rise 1.1s var(--ease-out-soft) both;
+}
+@keyframes hero-nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+.hero-nudge {
+  animation: hero-nudge 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise, .hero-nudge { animation: none; }
+}

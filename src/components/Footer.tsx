@@ -10,7 +10,7 @@ export default function Footer() {
           <Logo light />
           <p className="mt-4 max-w-[26rem] text-[14px] text-paper/80">Delivery all over Pakistan. Cash on delivery, bank transfer, JazzCash and Easypaisa.</p>
           <p lang="ur" dir="rtl" className="mt-3 w-max font-urdu text-[18px] leading-[2] text-paper/70">کراچی میں تیار، پورے پاکستان میں ڈیلیوری</p>
-          <p className="mt-4 max-w-[26rem] text-[12px] text-paper/45">Reference build. Brand, prices and figures are placeholders. Photos from Pexels; marble and terrazzo swatches from Poly Haven (CC0).</p>
+          <p className="mt-4 max-w-[26rem] text-[12px] text-paper/45">Reference build. Brand, prices and figures are placeholders. Photos and the home film (Aniket Suthar) from Pexels; marble and terrazzo swatches from Poly Haven (CC0).</p>
         </div>
         <div>
           <h4 className="mb-3 font-mono text-[12px] text-paper/50">Shop</h4>

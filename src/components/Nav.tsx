@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
 import { ArrowUpRight, ChevronDown, Menu, Minus, Plus, Search, ShoppingBag, Truck, X } from "lucide-react";
@@ -23,7 +24,10 @@ export function Logo({ light = false }: { light?: boolean }) {
 
 export default function Nav() {
   const lenis = useLenis();
+  const home = usePathname() === "/";
   const [hidden, setHidden] = useState(false);
+  // on the home page the bar floats, transparent, over the film hero until the page scrolls past it
+  const [overHero, setOverHero] = useState(home);
   const [mega, setMega] = useState(false);
   const [sheet, setSheet] = useState(false);
   const [hover, setHover] = useState(CATEGORIES[0].slug);
@@ -38,13 +42,15 @@ export default function Nav() {
   useEffect(() => {
     const handler = () => {
       const y = window.scrollY;
+      setOverHero(home && y < window.innerHeight - 140);
       if (y > 140 && y > last.current + 4) setHidden(true);
       else if (y < last.current - 4 || y < 140) setHidden(false);
       last.current = y;
     };
+    handler();
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
-  }, []);
+  }, [home]);
 
   useEffect(() => {
     const lock = sheet || cartOpen;
@@ -57,22 +63,24 @@ export default function Nav() {
   const openMega = () => { clearTimeout(closeTimer.current); setMega(true); };
   const closeMega = () => { closeTimer.current = setTimeout(() => setMega(false), 140); };
   const cat = CATEGORIES.find((c) => c.slug === hover)!;
-  const link = "rounded-full px-3.5 py-2 text-[14px] text-ink-2 transition-colors hover:bg-sand/70 hover:text-ink";
+  const clear = overHero && !mega && !sheet;
+  const link = `rounded-full px-3.5 py-2 text-[12.5px] uppercase tracking-[0.14em] transition-colors ${clear ? "text-white/85 hover:bg-white/10 hover:text-white" : "text-ink-2 hover:bg-sand/70 hover:text-ink"}`;
+  const icon = `grid size-11 place-items-center rounded-full transition ${clear ? "text-white/90 hover:bg-white/10 hover:text-white" : "text-ink-2 hover:bg-sand/70 hover:text-ink"}`;
 
   return (
     <>
       <header className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ease-[var(--ease-out-soft)] ${hidden && !mega ? "-translate-y-full" : "translate-y-0"}`}>
         {/* announcement bar */}
-        <div className="bg-ink text-paper">
+        <div className={`transition-colors duration-300 ${clear ? "border-b border-white/10 bg-transparent text-white/80" : "bg-ink text-paper"}`}>
           <div className="mx-auto flex h-9 max-w-[1400px] items-center justify-center gap-6 px-4 text-[12.5px] sm:justify-between sm:px-10">
             <p className="inline-flex items-center gap-2"><Truck className="size-3.5 text-clay" /> Delivery all over Pakistan</p>
-            <p className="hidden text-paper/70 sm:block">Cash on delivery · Free measuring &amp; fitting in Karachi</p>
+            <p className={`hidden sm:block ${clear ? "text-white/60" : "text-paper/70"}`}>Cash on delivery · Free measuring &amp; fitting in Karachi</p>
           </div>
         </div>
 
-        <nav aria-label="Main" onMouseLeave={closeMega} className="relative border-b border-line bg-paper/95 backdrop-blur-md">
+        <nav aria-label="Main" onMouseLeave={closeMega} className={`relative border-b transition-colors duration-300 ${clear ? "border-white/10 bg-transparent" : "border-line bg-paper/95 backdrop-blur-md"}`}>
           <div className="mx-auto flex h-[64px] max-w-[1400px] items-center justify-between gap-3 px-4 sm:px-10">
-            <Link href="/" aria-label="Lath and Line home" className="shrink-0"><Logo /></Link>
+            <Link href="/" aria-label="Lath and Line home" className={`shrink-0 transition-colors ${clear ? "text-white" : ""}`}><Logo light={clear} /></Link>
 
             <div className="hidden items-center gap-0.5 lg:flex">
               <button className={`${link} inline-flex items-center gap-1 ${mega ? "bg-sand/70 text-ink" : ""}`}
@@ -83,15 +91,15 @@ export default function Nav() {
             </div>
 
             <div className="flex items-center gap-1">
-              <Link href="/shop" aria-label="Search products" className="grid size-11 place-items-center rounded-full text-ink-2 transition hover:bg-sand/70 hover:text-ink"><Search className="size-[18px]" /></Link>
-              <button aria-label={`Open cart, ${count} items`} onClick={() => useCart.getState().setOpen(true)} className="relative grid size-11 place-items-center rounded-full text-ink-2 transition hover:bg-sand/70 hover:text-ink">
+              <Link href="/shop" aria-label="Search products" className={icon}><Search className="size-[18px]" /></Link>
+              <button aria-label={`Open cart, ${count} items`} onClick={() => useCart.getState().setOpen(true)} className={`relative ${icon}`}>
                 <ShoppingBag className="size-[18px]" />
                 {count > 0 && <span className="absolute right-1 top-1 grid min-w-4 place-items-center rounded-full bg-clay px-1 text-[10px] font-medium leading-4 text-white">{count}</span>}
               </button>
-              <Link href="/#visit" className="ml-1 hidden h-11 items-center gap-2 rounded-[14px] bg-ink pl-4 pr-3.5 text-[14px] font-medium text-paper transition hover:bg-black md:inline-flex">
+              <Link href="/#visit" className={`ml-1 hidden h-11 items-center gap-2 rounded-full pl-5 pr-4 text-[12.5px] font-medium uppercase tracking-[0.12em] transition md:inline-flex ${clear ? "bg-white text-ink hover:bg-paper" : "bg-ink text-paper hover:bg-black"}`}>
                 Book a measure <ArrowUpRight className="size-4" />
               </Link>
-              <button aria-label="Open menu" aria-expanded={sheet} onClick={() => setSheet(true)} className="grid size-11 place-items-center rounded-[14px] bg-ink text-paper lg:hidden"><Menu className="size-[18px]" /></button>
+              <button aria-label="Open menu" aria-expanded={sheet} onClick={() => setSheet(true)} className={`grid size-11 place-items-center rounded-[14px] transition lg:hidden ${clear ? "bg-white/15 text-white backdrop-blur-md" : "bg-ink text-paper"}`}><Menu className="size-[18px]" /></button>
             </div>
           </div>
 

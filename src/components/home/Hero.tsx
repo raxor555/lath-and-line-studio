@@ -1,37 +1,108 @@
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
-import { ArrowUpRight, Ruler } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowDown, ArrowUpRight, Pause, Play, RotateCcw } from "lucide-react";
+import { CATEGORIES } from "@/lib/catalog";
 
-/* The home hero is a photograph, so the shop opens instantly on any phone. */
+/* Full-bleed film hero: a panelled living room whose wall lights come up once (15 s, ~2 MB, 575 KB on phones),
+   then holds on the lit room. The nav sits over it, transparent, until the page scrolls past. */
 export default function Hero() {
-  return (
-    <section className="px-3 pt-[113px]">
-      <div className="relative h-[min(86svh,880px)] min-h-[560px] overflow-hidden rounded-[28px] bg-sand">
-        <Image src="/photos/shop/hero.jpg" alt="Living room with walnut slat wall panels around a book-matched marble sheet" fill priority sizes="100vw" className="object-cover object-[50%_40%]" />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#120d0a]/75 via-[#120d0a]/20 to-transparent" />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-[#120d0a]/45 to-transparent lg:via-transparent" />
+  const video = useRef<HTMLVideoElement>(null);
+  const [state, setState] = useState<"playing" | "paused" | "ended">("playing");
 
-        <div className="absolute inset-x-0 bottom-0 mx-auto flex max-w-[1400px] flex-col gap-8 px-6 pb-[calc(env(safe-area-inset-bottom)+36px)] text-white sm:px-10 lg:flex-row lg:items-end lg:justify-between lg:pb-14">
-          <div className="max-w-[760px]">
-            <p className="font-mono text-[12px] text-white/75">Wall panels · Karachi · Delivery all over Pakistan</p>
-            <h1 className="mt-4 text-[clamp(2.8rem,5.4vw,5.8rem)] font-light leading-[0.95] tracking-[-0.05em] [text-wrap:balance]">Walls, finished in a day.</h1>
-            <p className="mt-5 max-w-[32rem] text-[17px] leading-relaxed text-white/85">PVC and WPC panels, UV marble sheets and jaali, fitted over the wall you already have.</p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/shop" className="inline-flex h-[52px] items-center gap-2 rounded-2xl bg-white pl-5 pr-4 text-[15px] font-medium text-ink transition hover:bg-paper">
-                Shop all products <ArrowUpRight className="size-4" />
-              </Link>
-              <Link href="/#visit" className="inline-flex h-[52px] items-center gap-2 rounded-2xl border border-white/60 px-5 text-[15px] font-medium text-white transition hover:bg-white/15">
-                <Ruler className="size-4" /> Book a free measure
-              </Link>
-            </div>
+  useEffect(() => {
+    const v = video.current;
+    if (!v) return;
+    // reduced motion: no film, just the lit room
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      v.pause();
+      const toEnd = () => { v.currentTime = Math.max(0, v.duration - 0.05); setState("ended"); };
+      if (v.readyState >= 1) toEnd(); else v.addEventListener("loadedmetadata", toEnd, { once: true });
+      return;
+    }
+    v.play().catch(() => setState("paused"));
+  }, []);
+
+  const toggle = () => {
+    const v = video.current;
+    if (!v) return;
+    if (state === "ended") { v.currentTime = 0; v.play(); setState("playing"); }
+    else if (v.paused) { v.play(); setState("playing"); }
+    else { v.pause(); setState("paused"); }
+  };
+
+  return (
+    <section className="relative h-[100svh] min-h-[620px] overflow-hidden bg-[#141110] text-white">
+      <video
+        ref={video}
+        className="absolute inset-0 size-full object-cover"
+        poster="/video/hero-first.jpg"
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden
+        onEnded={() => setState("ended")}
+      >
+        <source src="/video/hero-m.mp4" type="video/mp4" media="(max-width: 767px)" />
+        <source src="/video/hero.mp4" type="video/mp4" />
+      </video>
+
+      {/* shade for the type: strongest top-left and along the bottom, the room stays visible on the right */}
+      <div aria-hidden className="absolute inset-0 bg-[linear-gradient(100deg,rgb(14_11_9/0.72)_0%,rgb(14_11_9/0.38)_45%,rgb(14_11_9/0.08)_75%)]" />
+      <div aria-hidden className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#0e0b09]/60 to-transparent" />
+      <div aria-hidden className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#0e0b09]/80 to-transparent" />
+
+      <div className="relative mx-auto flex h-full max-w-[1400px] flex-col px-5 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-[clamp(128px,17vh,176px)] sm:px-10">
+        <div className="flex items-start justify-between gap-10">
+          <div className="min-w-0">
+            <h1 aria-label="Lath and Line" className="hero-rise text-[clamp(5.6rem,13.2vw,13.5rem)] font-extralight uppercase leading-[0.82] tracking-[-0.07em]">
+              <span className="block sm:inline">Lath&nbsp;&amp;</span> <span className="block sm:inline">Line</span>
+            </h1>
+            <p className="hero-rise mt-6 max-w-[34rem] text-[clamp(1.15rem,2vw,1.75rem)] font-light uppercase leading-[1.15] tracking-[-0.01em] text-white/90 [text-wrap:balance] [animation-delay:120ms] sm:mt-8">
+              Wall panels that finish<br className="hidden sm:block" /> a room in a day
+            </p>
           </div>
 
-          {/* what is on the wall in the photo, linked to the products */}
-          <Link href="/shop/wpc" className="glass-dark group hidden w-[340px] rounded-3xl p-5 text-white transition hover:bg-black/40 lg:block">
-            <p className="font-mono text-[11px] text-white/60">In this room</p>
-            <p className="mt-2 text-[20px] font-light leading-snug tracking-[-0.02em]">Walnut WPC slats around a book-matched marble sheet.</p>
-            <p className="mt-3 inline-flex items-center gap-1.5 text-[13px] text-white/75 group-hover:text-white">Shop the look <ArrowUpRight className="size-3.5" /></p>
+          {/* the range, like a contents list */}
+          <nav aria-label="Categories" className="hero-rise hidden shrink-0 pt-4 text-right [animation-delay:240ms] lg:block">
+            <ul className="grid gap-2.5">
+              {CATEGORIES.map((c) => (
+                <li key={c.slug}>
+                  <Link href={`/shop/${c.slug}`} className="text-[12.5px] uppercase tracking-[0.16em] text-white/75 transition hover:text-white">{c.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <div className="hero-rise mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 [animation-delay:360ms]">
+          <Link href="/#visit" className="inline-flex h-[52px] items-center gap-2.5 rounded-full bg-clay pl-6 pr-5 text-[13px] font-medium uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_-10px_rgb(185_94_55/0.8)] transition hover:bg-[#a5512e]">
+            Book a free measure <ArrowUpRight className="size-4" />
           </Link>
+          <Link href="/shop" className="group inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.12em] text-white/90 transition hover:text-white">
+            <span className="border-b border-white/40 pb-0.5 transition group-hover:border-white">Shop all products</span> <ArrowUpRight className="size-4" />
+          </Link>
+        </div>
+
+        <p aria-hidden className="hero-rise pointer-events-none absolute right-10 top-[54%] hidden -rotate-6 font-script text-[clamp(2.4rem,3.6vw,3.6rem)] leading-none text-white/90 [animation-delay:480ms] lg:block">
+          fitted in Karachi
+        </p>
+
+        <div className="mt-auto flex items-end justify-between gap-6 border-t border-white/15 pt-5 text-[11.5px] uppercase tracking-[0.16em] text-white/70">
+          <p className="hidden sm:block">Delivery all over Pakistan<span className="mx-3 text-white/30">/</span>Cash on delivery</p>
+          <p className="sm:hidden">Delivered all over Pakistan</p>
+          <a href="#shop-start" className="hidden items-center gap-2 transition hover:text-white md:inline-flex">
+            Scroll <ArrowDown className="hero-nudge size-3.5" />
+          </a>
+          <button
+            onClick={toggle}
+            aria-label={state === "playing" ? "Pause the film" : state === "ended" ? "Replay the film" : "Play the film"}
+            className="inline-flex items-center gap-2 uppercase tracking-[0.16em] transition hover:text-white"
+          >
+            {state === "playing" ? <Pause className="size-3.5" /> : state === "ended" ? <RotateCcw className="size-3.5" /> : <Play className="size-3.5" />}
+            <span className="hidden sm:inline">{state === "playing" ? "Pause" : state === "ended" ? "Lights again" : "Play"}</span>
+          </button>
         </div>
       </div>
     </section>
