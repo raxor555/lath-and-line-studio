@@ -1,11 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
 import type { Product } from "@/lib/catalog";
 import ProductCard from "./ProductCard";
 
-const SORTS = { featured: "Featured", low: "Price: low to high", high: "Price: high to low" } as const;
+const SORTS = { featured: "Featured", low: "Price, low to high", high: "Price, high to low" } as const;
 
 export default function ProductGrid({ products }: { products: Product[] }) {
   const colours = useMemo(() => [...new Set(products.map((p) => p.colour))].sort(), [products]);
@@ -19,30 +18,30 @@ export default function ProductGrid({ products }: { products: Product[] }) {
     return l;
   }, [products, colour, sort]);
 
-  const chip = (on: boolean) => `h-9 shrink-0 rounded-full border px-3.5 text-[13px] transition ${on ? "border-ink bg-ink text-paper" : "border-line bg-paper text-ink-2 hover:border-ink-2"}`;
+  const opt = (on: boolean) => `label shrink-0 py-1 transition-colors ${on ? "text-ink draw-on" : "text-muted hover:text-ink"}`;
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-y border-line py-4">
-        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto">
-          <SlidersHorizontal className="mr-1 size-4 shrink-0 text-muted" />
-          <button className={chip(!colour)} onClick={() => setColour(null)}>All colours</button>
-          {colours.map((c) => <button key={c} className={chip(colour === c)} onClick={() => setColour(colour === c ? null : c)}>{c}</button>)}
+      <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-b border-ink/10 py-5">
+        <div className="no-scrollbar -mx-5 flex items-center gap-6 overflow-x-auto px-5 sm:mx-0 sm:px-0">
+          <span className="label shrink-0 text-muted">Colour</span>
+          <button className={opt(!colour)} aria-pressed={!colour} onClick={() => setColour(null)}>All</button>
+          {colours.map((c) => <button key={c} className={opt(colour === c)} aria-pressed={colour === c} onClick={() => setColour(colour === c ? null : c)}>{c}</button>)}
         </div>
-        <label className="flex items-center gap-2 text-[13px] text-muted">
+        <label className="label flex items-center gap-3 text-muted">
           Sort
-          <select value={sort} onChange={(e) => setSort(e.target.value as keyof typeof SORTS)} className="h-9 rounded-full border border-line bg-paper px-3 text-ink">
+          <select value={sort} onChange={(e) => setSort(e.target.value as keyof typeof SORTS)}
+            className="label cursor-pointer appearance-none border-b border-ink/30 bg-transparent py-1 pr-1 text-ink outline-none focus:border-ink">
             {Object.entries(SORTS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
           </select>
         </label>
       </div>
-      <p className="mb-5 text-[13px] text-muted">{list.length} product{list.length === 1 ? "" : "s"}</p>
       {list.length ? (
-        <div className="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-14 md:grid-cols-3 lg:grid-cols-4">
           {list.map((p) => <ProductCard key={p.slug} p={p} />)}
         </div>
       ) : (
-        <p className="py-20 text-center text-ink-2">Nothing matches those filters. <button className="underline" onClick={() => { setColour(null); }}>Clear filters</button></p>
+        <p className="py-24 text-center text-ink-2">Nothing matches that colour. <button className="draw-on" onClick={() => setColour(null)}>Show all colours</button></p>
       )}
     </div>
   );

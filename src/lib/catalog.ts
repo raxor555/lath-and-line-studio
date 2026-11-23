@@ -8,7 +8,7 @@ export type Product = {
   size: string; material: string; colour: string; swatch: string;
   /** metres of wall width one unit covers, for the quantity calculator */
   cover?: number;
-  badge?: "Bestseller" | "New" | "Made in Karachi";
+  badge?: "Bestseller" | "New";
   desc: string;
 };
 
@@ -115,8 +115,8 @@ export const PRODUCTS: Product[] = [
   p({ slug: "uv-marble-travertine", name: "Satin Sheet, Travertine", category: "marble-sheets", sub: "matte", price: 5600, unit: "sheet", size: "1220 × 2440 × 3 mm", material: "PVC", colour: "Beige", swatch: "url(/swatches/travertine.jpg) center/cover", cover: 1.22 }),
   p({ slug: "book-matched-calacatta", name: "Book-Matched Pair, Calacatta", category: "marble-sheets", sub: "book-matched", price: 12900, unit: "sheet", size: "2 × 1220 × 2440 mm", material: "PVC + UV coat", colour: "White", swatch: "url(/swatches/marble_statuario.jpg) center/180%", cover: 2.44, badge: "New" }),
   // Jaali
-  p({ slug: "jaali-shalimar-walnut", name: "Jaali Sheet, Shalimar Walnut", category: "jaali", sub: "mdf-jaali", price: 14500, unit: "sheet", size: "1220 × 2440 × 12 mm", material: "MDF, walnut veneer", colour: "Wood", swatch: "radial-gradient(circle,#f3cf9c 30%,#5b3d2b 32% 40%,#f3cf9c 42%) 0 0/16px 16px", cover: 1.22, badge: "Made in Karachi" }),
-  p({ slug: "jaali-mughal-ivory", name: "Jaali Sheet, Mughal Ivory", category: "jaali", sub: "mdf-jaali", price: 12900, unit: "sheet", size: "1220 × 2440 × 12 mm", material: "MDF, lacquered", colour: "White", swatch: "radial-gradient(circle,#b98a5c 30%,#f4eee4 32% 40%,#b98a5c 42%) 0 0/16px 16px", cover: 1.22, badge: "Made in Karachi" }),
+  p({ slug: "jaali-shalimar-walnut", name: "Jaali Sheet, Shalimar Walnut", category: "jaali", sub: "mdf-jaali", price: 14500, unit: "sheet", size: "1220 × 2440 × 12 mm", material: "MDF, walnut veneer", colour: "Wood", swatch: "radial-gradient(circle,#f3cf9c 30%,#5b3d2b 32% 40%,#f3cf9c 42%) 0 0/16px 16px", cover: 1.22 }),
+  p({ slug: "jaali-mughal-ivory", name: "Jaali Sheet, Mughal Ivory", category: "jaali", sub: "mdf-jaali", price: 12900, unit: "sheet", size: "1220 × 2440 × 12 mm", material: "MDF, lacquered", colour: "White", swatch: "radial-gradient(circle,#b98a5c 30%,#f4eee4 32% 40%,#b98a5c 42%) 0 0/16px 16px", cover: 1.22 }),
   p({ slug: "jaali-pvc-white", name: "PVC Jaali, Star Lattice White", category: "jaali", sub: "pvc-jaali", price: 8900, unit: "sheet", size: "1220 × 2440 × 8 mm", material: "PVC foam board", colour: "White", swatch: "radial-gradient(circle,#cfc9bf 30%,#f7f5f1 32% 40%,#cfc9bf 42%) 0 0/14px 14px", cover: 1.22 }),
   p({ slug: "divider-oak-slat", name: "Slat Room Divider, Oak", category: "jaali", sub: "dividers", price: 24500, unit: "piece", size: "900 × 2700 mm, framed", material: "Solid wood + WPC", colour: "Wood", swatch: slat("#c49a6c") }),
   // Wallpaper & adhesive
@@ -131,6 +131,9 @@ export const PRODUCTS: Product[] = [
   p({ slug: "led-profile-recessed", name: "Recessed LED Profile with Diffuser", category: "accessories", sub: "led", price: 1150, unit: "piece", size: "2 m, 3000K strip included", material: "Aluminium", colour: "Silver", swatch: "linear-gradient(90deg,#c9c9c7,#fff6dd 45% 55%,#c9c9c7)", badge: "New" }),
   p({ slug: "panel-adhesive-310", name: "Panel Adhesive, 310 ml", category: "accessories", sub: "fixings", price: 650, unit: "piece", size: "310 ml cartridge", material: "MS polymer", colour: "White", swatch: solid("#f2f1ee", "#d9d7d2") }),
 ];
+
+/* every finish except marble and terrazzo (cropped photos) has a rendered raster swatch: scripts/render-swatches.py */
+for (const x of PRODUCTS) if (!x.swatch.startsWith("url(")) x.swatch = `url(/swatches/p/${x.slug}.jpg) center/cover`;
 
 /* short, consistent product copy so every page reads properly */
 for (const x of PRODUCTS) if (!x.desc) {

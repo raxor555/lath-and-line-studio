@@ -2,33 +2,32 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Plus } from "lucide-react";
 import { categoryBySlug, pkr, type Product } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 
-/** Room photo for the sub-category, with the product's own colour as a swatch that takes over on hover. */
+/** The product's own finish fills the frame; on hover it shows the room the finish is used in. */
 export default function ProductCard({ p }: { p: Product }) {
   const sub = categoryBySlug(p.category)?.subs.find((s) => s.slug === p.sub);
   return (
-    <article className="group relative">
+    <article data-rise className="group">
       <Link href={`/product/${p.slug}`} className="block">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] bg-sand">
-          {sub && <Image src={sub.img} alt="" fill sizes="(min-width:1024px) 25vw, 50vw" className="object-cover transition duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]" />}
-          {/* the product's own finish, shown as a large chip that grows on hover */}
-          <span className="absolute bottom-3 left-3 size-14 rounded-xl border-2 border-white shadow-lg transition-all duration-500 ease-[var(--ease-out-soft)] group-hover:size-24"
-            style={{ background: p.swatch, backgroundSize: "cover" }} />
-          {p.badge && <span className="absolute left-3 top-3 rounded-full bg-paper px-2.5 py-1 text-[11px] font-medium">{p.badge}</span>}
-        </div>
-        <div className="mt-3 px-1">
-          <p className="font-mono text-[11px] text-muted">{sub?.name}</p>
-          <h3 className="mt-0.5 text-[15px] font-medium leading-snug">{p.name}</h3>
-          <p className="mt-1 text-[14px]"><span className="font-medium">{pkr(p.price)}</span> <span className="text-muted">/ {p.unit}</span></p>
+        <div className="relative aspect-[4/5] overflow-hidden bg-sand">
+          {/* the finish itself, rendered from real texture photography */}
+          <span aria-hidden className="absolute inset-0 transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]" style={{ background: p.swatch, backgroundSize: "cover" }} />
+          {/* the room it goes in, on hover */}
+          {sub && <Image src={sub.img} alt="" fill sizes="(min-width:1024px) 25vw, 50vw" className="object-cover opacity-0 transition-opacity duration-700 ease-[var(--ease-out-expo)] group-hover:opacity-100" />}
         </div>
       </Link>
-      <button onClick={() => useCart.getState().add(p.slug)} aria-label={`Add ${p.name} to cart`}
-        className="absolute bottom-[86px] right-3 grid size-10 place-items-center rounded-full bg-paper text-ink opacity-100 shadow-md transition hover:bg-ink hover:text-paper lg:translate-y-1 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
-        <Plus className="size-4" />
-      </button>
+      <div className="mt-4 flex items-start justify-between gap-3">
+        <Link href={`/product/${p.slug}`} className="min-w-0">
+          <p className="label text-[10.5px] text-muted">{sub?.name}</p>
+          <h3 className="mt-1.5 text-[15px] leading-snug">{p.name}</h3>
+          <p className="mt-1 text-[14px] tabular-nums">{pkr(p.price)} <span className="text-muted">/ {p.unit}</span></p>
+        </Link>
+        <button onClick={() => useCart.getState().add(p.slug)} aria-label={`Add ${p.name} to cart`} className="label draw mt-0.5 shrink-0 py-1 text-ink-2 hover:text-ink">
+          Add +
+        </button>
+      </div>
     </article>
   );
 }

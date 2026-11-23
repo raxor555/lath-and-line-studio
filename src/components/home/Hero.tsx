@@ -52,8 +52,10 @@ export default function Hero() {
       <div aria-hidden className="absolute inset-0 bg-[linear-gradient(100deg,rgb(14_11_9/0.72)_0%,rgb(14_11_9/0.38)_45%,rgb(14_11_9/0.08)_75%)]" />
       <div aria-hidden className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#0e0b09]/60 to-transparent" />
       <div aria-hidden className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-[#0e0b09]/80 to-transparent" />
+      {/* keeps the category index legible where it crosses the lit seams */}
+      <div aria-hidden className="absolute right-0 top-0 hidden h-[62%] w-[42%] bg-[radial-gradient(ellipse_at_85%_30%,rgb(14_11_9/0.72)_0%,rgb(14_11_9/0.4)_40%,transparent_72%)] lg:block" />
 
-      <div className="relative mx-auto flex h-full max-w-[1400px] flex-col px-5 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-[clamp(128px,17vh,176px)] sm:px-10">
+      <div className="relative mx-auto flex h-full max-w-[1600px] flex-col px-5 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-[clamp(128px,17vh,176px)] sm:px-10">
         <div className="flex items-start justify-between gap-10">
           <div className="min-w-0">
             <h1 aria-label="Lath and Line" className="hero-rise text-[clamp(5.6rem,13.2vw,13.5rem)] font-extralight uppercase leading-[0.82] tracking-[-0.07em]">
@@ -69,7 +71,7 @@ export default function Hero() {
             <ul className="grid gap-2.5">
               {CATEGORIES.map((c) => (
                 <li key={c.slug}>
-                  <Link href={`/shop/${c.slug}`} className="text-[12.5px] uppercase tracking-[0.16em] text-white/75 transition hover:text-white">{c.name}</Link>
+                  <Link href={`/shop/${c.slug}`} className="label draw text-white/75 transition hover:text-white">{c.name}</Link>
                 </li>
               ))}
             </ul>
@@ -77,17 +79,13 @@ export default function Hero() {
         </div>
 
         <div className="hero-rise mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 [animation-delay:360ms]">
-          <Link href="/#visit" className="inline-flex h-[52px] items-center gap-2.5 rounded-full bg-clay pl-6 pr-5 text-[13px] font-medium uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_-10px_rgb(185_94_55/0.8)] transition hover:bg-[#a5512e]">
+          <Link href="/#visit" className="label inline-flex h-[54px] items-center gap-2.5 rounded-full bg-clay pl-7 pr-6 text-white shadow-[0_14px_34px_-14px_rgb(178_89_52/0.9)] transition duration-300 hover:bg-[#a5512e]">
             Book a free measure <ArrowUpRight className="size-4" />
           </Link>
-          <Link href="/shop" className="group inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.12em] text-white/90 transition hover:text-white">
-            <span className="border-b border-white/40 pb-0.5 transition group-hover:border-white">Shop all products</span> <ArrowUpRight className="size-4" />
+          <Link href="/shop" className="label draw-on inline-flex items-center gap-2 py-1 text-white/90 transition hover:text-white">
+            Shop all products <ArrowUpRight className="size-4" />
           </Link>
         </div>
-
-        <p aria-hidden className="hero-rise pointer-events-none absolute right-10 top-[54%] hidden -rotate-6 font-script text-[clamp(2.4rem,3.6vw,3.6rem)] leading-none text-white/90 [animation-delay:480ms] lg:block">
-          fitted in Karachi
-        </p>
 
         <div className="mt-auto flex items-end justify-between gap-6 border-t border-white/15 pt-5 text-[11.5px] uppercase tracking-[0.16em] text-white/70">
           <p className="hidden sm:block">Delivery all over Pakistan<span className="mx-3 text-white/30">/</span>Cash on delivery</p>

@@ -4,33 +4,37 @@ import { Logo } from "./Nav";
 
 export default function Footer() {
   return (
-    <footer id="trade" className="mx-3 mb-3 rounded-[28px] bg-ink px-6 py-14 text-paper sm:px-10">
-      <div className="mx-auto grid max-w-[1400px] gap-10 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
-        <div>
-          <Logo light />
-          <p className="mt-4 max-w-[26rem] text-[14px] text-paper/80">Delivery all over Pakistan. Cash on delivery, bank transfer, JazzCash and Easypaisa.</p>
-          <p lang="ur" dir="rtl" className="mt-3 w-max font-urdu text-[18px] leading-[2] text-paper/70">کراچی میں تیار، پورے پاکستان میں ڈیلیوری</p>
-          <p className="mt-4 max-w-[26rem] text-[12px] text-paper/45">Reference build. Brand, prices and figures are placeholders. Photos and the home film (Aniket Suthar) from Pexels; marble and terrazzo swatches from Poly Haven (CC0).</p>
+    <footer id="trade" className="overflow-hidden bg-night text-white">
+      <div className="mx-auto max-w-[1600px] px-5 sm:px-10">
+        <div className="grid gap-12 border-b border-white/12 py-20 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
+          <div>
+            <Logo light />
+            <p className="mt-6 max-w-[24rem] text-[15px] leading-relaxed text-white/70">Wall panels delivered all over Pakistan. Cash on delivery, bank transfer, JazzCash and Easypaisa. Free measuring and fitting in Karachi.</p>
+          </div>
+          <div>
+            <h4 className="label mb-5 text-white/45">Shop</h4>
+            <ul className="grid gap-3 text-[14px]">{CATEGORIES.map((c) => <li key={c.slug}><Link href={`/shop/${c.slug}`} className="draw text-white/80 hover:text-white">{c.name}</Link></li>)}</ul>
+          </div>
+          <div>
+            <h4 className="label mb-5 text-white/45">Help</h4>
+            <ul className="grid gap-3 text-[14px] text-white/80">
+              <li><Link href="/#process" className="draw hover:text-white">How fitting works</Link></li>
+              <li><Link href="/#rooms" className="draw hover:text-white">Room ideas</Link></li>
+              <li><Link href="/checkout" className="draw hover:text-white">Checkout</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="label mb-5 text-white/45">Karachi</h4>
+            <ul className="grid gap-3 text-[14px] text-white/80">
+              <li>Free measure &amp; fitting</li>
+              <li><Link href="/#visit" className="draw hover:text-white">Book a free measure</Link></li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <h4 className="mb-3 font-mono text-[12px] text-paper/50">Shop</h4>
-          <ul className="grid gap-2 text-[14px]">{CATEGORIES.map((c) => <li key={c.slug}><Link href={`/shop/${c.slug}`} className="text-paper/85 hover:text-paper">{c.name}</Link></li>)}</ul>
-        </div>
-        <div>
-          <h4 className="mb-3 font-mono text-[12px] text-paper/50">Help</h4>
-          <ul className="grid gap-2 text-[14px] text-paper/85">
-            <li><Link href="/#process" className="hover:text-paper">How fitting works</Link></li>
-            <li><Link href="/checkout" className="hover:text-paper">Checkout</Link></li>
-            <li>Delivery all over Pakistan</li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="mb-3 font-mono text-[12px] text-paper/50">Showroom</h4>
-          <ul className="grid gap-2 text-[14px] text-paper/85">
-            <li>Shahrah-e-Faisal, Karachi</li>
-            <li>Mon to Sat, 11:00 to 21:00</li>
-            <li><Link href="/#visit" className="hover:text-paper">Book a free measure</Link></li>
-          </ul>
+        <p aria-hidden className="select-none pt-10 text-center text-[clamp(3.4rem,15.6vw,16rem)] font-extralight uppercase leading-[0.8] tracking-[-0.06em] text-white/[0.92]">Lath &amp; Line</p>
+        <div className="flex flex-wrap justify-between gap-4 py-8 text-[11.5px] leading-relaxed text-white/60">
+          <p>Reference build. Brand, prices and figures are placeholders.</p>
+          <p>Photos and the home film (Aniket Suthar) from Pexels. Marble and terrazzo swatches cropped from Pexels photos; other finishes rendered from CC0 Poly Haven textures.</p>
         </div>
       </div>
     </footer>

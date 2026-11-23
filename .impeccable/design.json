@@ -1,0 +1,396 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-23T01:36:01+00:00",
+  "title": "Design System: Lath & Line",
+  "extensions": {
+    "colorMeta": {
+      "clay": {
+        "role": "primary",
+        "displayName": "Fired Clay",
+        "canonical": "#b25934",
+        "oklch": "oklch(58.3% 0.129 42.8)",
+        "tonalRamp": [
+          "#1a0400",
+          "#3e1604",
+          "#662c12",
+          "#914422",
+          "#ba6643",
+          "#d79175",
+          "#f2bda7",
+          "#ffe5d6"
+        ]
+      },
+      "clay-deep": {
+        "role": "primary",
+        "displayName": "Deep Clay",
+        "canonical": "#a5512e",
+        "oklch": "oklch(53.2% 0.121 42.2)",
+        "tonalRamp": [
+          "#190400",
+          "#3d1707",
+          "#642e17",
+          "#8f4628",
+          "#b76848",
+          "#d49279",
+          "#f0bdaa",
+          "#ffe6d8"
+        ]
+      },
+      "night": {
+        "role": "neutral",
+        "displayName": "Night Charcoal",
+        "canonical": "#13100e",
+        "oklch": "oklch(17.6% 0.006 55.9)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#252422",
+          "#423f3d",
+          "#605d5a",
+          "#837f7d",
+          "#a7a4a2",
+          "#cccac8",
+          "#f0eeed"
+        ]
+      },
+      "bone": {
+        "role": "neutral",
+        "displayName": "Cool Stone",
+        "canonical": "#e7e4df",
+        "oklch": "oklch(92.0% 0.007 80.7)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#252422",
+          "#413f3d",
+          "#5f5d59",
+          "#82807c",
+          "#a6a4a1",
+          "#cccac8",
+          "#efeeec"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#f1efeb",
+        "oklch": "oklch(95.3% 0.006 84.6)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#252422",
+          "#41403d",
+          "#5f5d5a",
+          "#82807d",
+          "#a6a4a2",
+          "#cbcac8",
+          "#efeeed"
+        ]
+      },
+      "sand": {
+        "role": "neutral",
+        "displayName": "Sand",
+        "canonical": "#d8d3cb",
+        "oklch": "oklch(86.9% 0.012 79.8)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262421",
+          "#423f3b",
+          "#615d57",
+          "#848079",
+          "#a7a49e",
+          "#cdcac6",
+          "#f0eeeb"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#1b1612",
+        "oklch": "oklch(20.5% 0.011 60.8)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262321",
+          "#433f3c",
+          "#625c58",
+          "#857f7a",
+          "#a9a3a0",
+          "#cdcac7",
+          "#f0eeec"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Second",
+        "canonical": "#463c34",
+        "oklch": "oklch(36.4% 0.019 60.8)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#28231f",
+          "#453e38",
+          "#655c54",
+          "#887e76",
+          "#aba39c",
+          "#d0c9c4",
+          "#f2edea"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Umber",
+        "canonical": "#665c54",
+        "oklch": "oklch(51.4% 0.018 61.1)",
+        "tonalRamp": [
+          "#0d0b09",
+          "#28231f",
+          "#453e39",
+          "#645c55",
+          "#887e77",
+          "#aba39d",
+          "#cfc9c4",
+          "#f2eeea"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline Stone",
+        "canonical": "#cfc9c0",
+        "oklch": "oklch(83.8% 0.014 78.3)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262420",
+          "#433f3a",
+          "#625d56",
+          "#847f78",
+          "#a8a49e",
+          "#cdcac5",
+          "#f0eeeb"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display-hero": {
+        "displayName": "Display Hero",
+        "purpose": "Home wordmark only; the footer repeats it at clamp(3.4rem, 15.6vw, 16rem)."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Section and page headings, uppercase."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Collection index rows and product names."
+      },
+      "statement": {
+        "displayName": "Statement",
+        "purpose": "The night manifesto paragraph, sentence case, word-by-word scroll reveal."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Process steps, mega-menu rows, drawer heading, room captions."
+      },
+      "price": {
+        "displayName": "Price",
+        "purpose": "Product price and totals, tabular figures."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs at 15-17px, capped at 24-34rem."
+      },
+      "body-sm": {
+        "displayName": "Body Small",
+        "purpose": "Lists, specs, cart lines."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "All controls, links and metadata, uppercase and tracked."
+      }
+    },
+    "shadows": [],
+    "materials": [
+      {
+        "name": "nav-scrolled",
+        "value": "background: rgb(231 228 223 / 0.9); backdrop-filter: blur(24px)",
+        "purpose": "The nav once the page scrolls past the hero; the only translucent surface."
+      },
+      {
+        "name": "scrim-night",
+        "value": "gradients of rgb(14 11 9 / 0.08-0.80) over photography",
+        "purpose": "Legibility over the hero film and night photographs."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default for CSS transitions: underlines, nav, drawer, menus (500-700ms)."
+      },
+      {
+        "name": "ease-out-soft",
+        "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "purpose": "Hero line rise-in (1.1s)."
+      },
+      {
+        "name": "data-lines",
+        "value": "SplitText lines, yPercent 105 to 0, 1.2s expo.out, stagger 0.09",
+        "purpose": "Heading reveal."
+      },
+      {
+        "name": "data-wipe",
+        "value": "clip-path inset(100% 0 0 0) to inset(0), 1.4s expo.inOut; img scale 1.15 to 1, 1.8s expo.out",
+        "purpose": "Photo frame reveal."
+      },
+      {
+        "name": "data-rise",
+        "value": "opacity 0 and y 32 to rest, 1s expo.out, batched stagger 0.08",
+        "purpose": "Block and product-row entrance."
+      },
+      {
+        "name": "data-drift",
+        "value": "yPercent -8 to 8, scrubbed to scroll",
+        "purpose": "Photo parallax."
+      },
+      {
+        "name": "index-follow",
+        "value": "gsap.quickTo x/y 0.6s expo.out; scale 0.6 to 1",
+        "purpose": "Collection index cursor-following room photo."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "rooms",
+        "value": "900px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (measure)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Clay pill, used only for booking the free measure.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Book a free measure <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a>",
+      "css": ".ds-btn-primary{font-family:var(--font-sans,Geist,'Helvetica Neue',Arial,sans-serif);font-size:11.5px;line-height:1.2;letter-spacing:0.16em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;height:54px;padding:0 24px 0 28px;border-radius:9999px;background:var(--color-clay,#b25934);color:#fff;text-decoration:none;transition:background-color .3s;}.ds-btn-primary:hover{background:#a5512e;}.ds-btn-primary:focus-visible{outline:2px solid var(--color-clay,#b25934);outline-offset:3px;}"
+    },
+    {
+      "name": "Commerce Button",
+      "kind": "button",
+      "refersTo": "button-commerce",
+      "description": "Ink pill for add to cart, checkout and place order; turns clay on hover.",
+      "html": "<button class=\"ds-btn-commerce\">Add to cart · Rs 4,200</button>",
+      "css": ".ds-btn-commerce{font-family:var(--font-sans,Geist,'Helvetica Neue',Arial,sans-serif);font-size:11.5px;line-height:1.2;letter-spacing:0.16em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:56px;min-width:280px;padding:0 32px;border:0;border-radius:9999px;background:var(--color-ink,#1b1612);color:var(--color-paper,#f1efeb);cursor:pointer;transition:background-color .3s;}.ds-btn-commerce:hover{background:var(--color-clay,#b25934);}.ds-btn-commerce:focus-visible{outline:2px solid var(--color-clay,#b25934);outline-offset:3px;}"
+    },
+    {
+      "name": "Button on Night",
+      "kind": "button",
+      "refersTo": "button-on-night",
+      "description": "White pill used in the nav over the film and the mega menu.",
+      "html": "<div class=\"ds-night-wrap\"><a class=\"ds-btn-night\" href=\"#\">Book a measure <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a></div>",
+      "css": ".ds-night-wrap{background:var(--color-night,#13100e);padding:24px;}.ds-btn-night{font-family:var(--font-sans,Geist,'Helvetica Neue',Arial,sans-serif);font-size:11.5px;line-height:1.2;letter-spacing:0.16em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px 0 20px;border-radius:9999px;background:#fff;color:var(--color-ink,#1b1612);text-decoration:none;transition:background-color .3s,color .3s;}.ds-btn-night:hover{background:var(--color-clay,#b25934);color:#fff;}.ds-btn-night:focus-visible{outline:2px solid var(--color-clay,#b25934);outline-offset:3px;}"
+    },
+    {
+      "name": "Underline Link",
+      "kind": "custom",
+      "refersTo": "link-underline",
+      "description": "Secondary action: underline drawn in from the left (draw) or retracting on hover (draw-on).",
+      "html": "<div class=\"ds-links\"><a class=\"ds-draw\" href=\"#\">Room ideas</a><a class=\"ds-draw-on\" href=\"#\">Shop all products <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a></div>",
+      "css": ".ds-links{display:flex;gap:32px;align-items:center;color:var(--color-ink,#1b1612);}.ds-draw,.ds-draw-on{font-family:var(--font-sans,Geist,'Helvetica Neue',Arial,sans-serif);font-size:11.5px;line-height:1.2;letter-spacing:0.16em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;padding:4px 0;color:inherit;text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .5s cubic-bezier(0.16, 1, 0.3, 1);}.ds-draw:hover,.ds-draw:focus-visible{background-size:100% 1px;}.ds-draw-on{background-size:100% 1px;}.ds-draw-on:hover{background-size:40% 1px;}.ds-draw:focus-visible,.ds-draw-on:focus-visible{outline:2px solid var(--color-clay,#b25934);outline-offset:3px;}"
+    },
+    {
+      "name": "Underline Input",
+      "kind": "input",
+      "refersTo": "input-underline",
+      "description": "Square, transparent field with a hairline bottom border that darkens on focus.",
+      "html": "<input class=\"ds-input\" placeholder=\"Mobile number (03XX XXXXXXX)\" />",
+      "css": ".ds-input{font-family:var(--font-sans,Geist,'Helvetica Neue',Arial,sans-serif);height:56px;width:100%;max-width:420px;border:0;border-bottom:1px solid rgb(27 22 18/.25);border-radius:0;background:transparent;color:var(--color-ink,#1b1612);font-size:16px;outline:none;transition:border-color .3s;}.ds-input::placeholder{color:var(--color-muted,#665c54);}.ds-input:focus{border-bottom-color:var(--color-ink,#1b1612);}"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "refersTo": "nav-bar",
+      "description": "Three-zone bar: label links left, slat logo centre, cart count and pill right (scrolled state).",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-l\"><a href=\"#\">Shop</a><a href=\"#\">Collections</a><a href=\"#\">Room ideas</a></div><span class=\"ds-logo\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"3\" height=\"18\" rx=\"1.2\" fill=\"#1B1612\"/><rect x=\"10.5\" y=\"3\" width=\"3\" height=\"18\" rx=\"1.2\" fill=\"#1B1612\"/><rect x=\"18\" y=\"3\" width=\"3\" height=\"18\" rx=\"1.2\" fill=\"#B25934\"/></svg>Lath &amp; Line</span><div class=\"ds-nav-r\"><a href=\"#\">Cart (0)</a><a class=\"ds-nav-pill\" href=\"#\">Book a measure</a></div></nav>",
+      "css": ".ds-nav{font-family:var(--font-sans,Geist,'Helvetica Neue',Arial,sans-serif);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:68px;padding:0 40px;background:rgb(231 228 223/.9);backdrop-filter:blur(24px);border-bottom:1px solid rgb(27 22 18/.1);color:var(--color-ink,#1b1612);}.ds-nav a{font-size:11.5px;line-height:1.2;letter-spacing:0.16em;text-transform:uppercase;color:inherit;text-decoration:none;opacity:.75;transition:opacity .3s;}.ds-nav a:hover{opacity:1;}.ds-nav a:focus-visible{outline:2px solid var(--color-clay,#b25934);outline-offset:3px;}.ds-nav-l,.ds-nav-r{display:flex;gap:32px;align-items:center;}.ds-nav-r{justify-content:flex-end;gap:24px;}.ds-logo{display:inline-flex;align-items:center;gap:12px;font-size:13px;letter-spacing:.3em;text-transform:uppercase;white-space:nowrap;}.ds-nav a.ds-nav-pill{opacity:1;display:inline-flex;align-items:center;height:40px;padding:0 16px 0 20px;border-radius:9999px;background:var(--color-ink,#1b1612);color:var(--color-paper,#f1efeb);transition:background-color .3s;}.ds-nav a.ds-nav-pill:hover{background:var(--color-clay,#b25934);}"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "product-card",
+      "description": "Square-cornered 4:5 swatch frame with a plain caption and a draw-link add.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-frame\"></div><div class=\"ds-card-cap\"><div><p class=\"ds-card-range\">Fluted panels</p><h3 class=\"ds-card-name\">PVC Fluted Panel, Walnut</h3><p class=\"ds-card-price\">Rs 3,450 <span>/ panel</span></p></div><button class=\"ds-card-add\">Add +</button></div></article>",
+      "css": ".ds-card{font-family:var(--font-sans,Geist,'Helvetica Neue',Arial,sans-serif);width:260px;color:var(--color-ink,#1b1612);}.ds-card-frame{aspect-ratio:4/5;background:var(--color-sand,#d8d3cb) repeating-linear-gradient(90deg,#5a3d2b 0 14px,#6e4c36 14px 18px);transition:transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);}.ds-card:hover .ds-card-frame{transform:scale(1.02);}.ds-card-cap{margin-top:16px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;}.ds-card-range{margin:0;font-size:11.5px;line-height:1.2;letter-spacing:0.16em;text-transform:uppercase;font-size:10.5px;color:var(--color-muted,#665c54);}.ds-card-name{margin:6px 0 0;font-size:15px;font-weight:400;line-height:1.375;}.ds-card-price{margin:4px 0 0;font-size:14px;font-variant-numeric:tabular-nums;}.ds-card-price span{color:var(--color-muted,#665c54);}.ds-card-add{font-family:var(--font-sans,Geist,'Helvetica Neue',Arial,sans-serif);font-size:11.5px;line-height:1.2;letter-spacing:0.16em;text-transform:uppercase;border:0;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;padding:4px 0;color:var(--color-ink-2,#463c34);cursor:pointer;transition:background-size .5s cubic-bezier(0.16, 1, 0.3, 1);}.ds-card-add:hover{background-size:100% 1px;color:var(--color-ink,#1b1612);}.ds-card-add:focus-visible{outline:2px solid var(--color-clay,#b25934);outline-offset:3px;}"
+    },
+    {
+      "name": "Collection Index",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature: huge extralight type rows between hairlines; the hovered row indents while the others dim. The cursor-following room photo needs GSAP and is not reproduced here.",
+      "html": "<ul class=\"ds-index\"><li><a href=\"#\"><span class=\"ds-index-name\">PVC Panels</span><span class=\"ds-index-meta\">4 ranges<br>from Rs 2,900</span></a></li><li><a href=\"#\"><span class=\"ds-index-name\">WPC Slats</span><span class=\"ds-index-meta\">3 ranges<br>from Rs 4,100</span></a></li><li><a href=\"#\"><span class=\"ds-index-name\">UV Marble</span><span class=\"ds-index-meta\">2 ranges<br>from Rs 6,800</span></a></li></ul>",
+      "css": ".ds-index{font-family:var(--font-sans,Geist,'Helvetica Neue',Arial,sans-serif);list-style:none;margin:0;padding:0;border-top:1px solid rgb(27 22 18/.15);color:var(--color-ink,#1b1612);}.ds-index li{border-bottom:1px solid rgb(27 22 18/.15);}.ds-index a{display:flex;align-items:center;gap:20px;padding:24px 0;color:inherit;text-decoration:none;transition:opacity .5s cubic-bezier(0.16, 1, 0.3, 1),padding .5s cubic-bezier(0.16, 1, 0.3, 1);}.ds-index:hover a{opacity:.35;}.ds-index a:hover,.ds-index a:focus-visible{opacity:1;padding-left:24px;}.ds-index-name{flex:1;font-size:clamp(1.6rem,5.2vw,5.4rem);font-weight:200;text-transform:uppercase;line-height:.95;letter-spacing:-.04em;}.ds-index-meta{font-size:11.5px;line-height:1.2;letter-spacing:0.16em;text-transform:uppercase;text-align:right;color:var(--color-muted,#665c54);line-height:1.6;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Gallery of Walls",
+    "overview": "The storefront is hung like a gallery, not stocked like a shelf. Full-bleed rooms and finish swatches fill square-cornered frames edge to edge; the structure between them is carried by giant, thin, uppercase Geist and 1px hairline rules, never by boxes. The store alternates between two chapters: night (near-black warm charcoal) for atmosphere, statement and booking, and day (cool stone) for browsing, product detail and checkout. Every surface is flat; depth comes from photography, scrims and the change of chapter.\n\nDensity is low and the rhythm is slow: 128–192px between sections, a 1600px container with 20/40px gutters, product grids that breathe (20px across, 56px down). Type does the hierarchy work through scale and weight contrast, from a 13vw extralight wordmark to an 11.5px tracked uppercase label, with almost nothing in between at heavy weights.\n\nMotion is one grammar applied everywhere: heading lines rise out of masks, photo frames wipe open from the bottom, blocks lift into place in batched waves, photos drift against the scroll. All of it uses long expo-out easing and all of it switches off under reduced motion. This system replaced an earlier rounded-card look; rounded containers and boxed stat or feature tiles are the confirmed anti-reference.",
+    "keyCharacteristics": [
+      "Two chapters: night (#13100e) and cool stone (#e7e4df), never cream.",
+      "Square-cornered photography and swatches, full-bleed or in hairline-ruled grids.",
+      "Thin uppercase display type (Geist 200) with negative tracking; tracked uppercase labels.",
+      "1px hairlines (ink at 15%, white at 12–15%) as the only structural device.",
+      "Pill buttons for actions, drawn underlines for everything secondary.",
+      "One GSAP motion grammar opted into by data attributes."
+    ],
+    "rules": [
+      {
+        "name": "The Clay Is an Action Rule",
+        "body": "Clay fills only the book-a-measure pill; on every other control it appears as a hover or focus state. If clay is sitting still on a non-measure element, it is wrong (the logo slat is the one fixed exception).",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Chapters Rule",
+        "body": "A section is either night or stone; there is no third surface colour and no tinted card on either.",
+        "section": "colors"
+      },
+      {
+        "name": "The Thin Shout Rule",
+        "body": "Large type is always light (200–300) and uppercase with negative tracking; heavy weights do not appear at display sizes.",
+        "section": "typography"
+      },
+      {
+        "name": "The Label Voice Rule",
+        "body": "Every control and every piece of metadata speaks in the 11.5px tracked uppercase label; body text never carries actions.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Wall Rule",
+        "body": "Nothing rests on top of anything. Overlays (mega menu, mobile sheet, cart drawer) arrive by clip-path or translate, not by shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** alternate night (#13100e) and stone (#e7e4df) chapters; give every section 128px or more of vertical space.",
+      "**Do** set headings in Geist 200, uppercase, with negative tracking (-0.03em to -0.07em) and line-height under 1.",
+      "**Do** put every control and metadata line in the 11.5px, 0.16em tracked uppercase label.",
+      "**Do** frame photos and swatches with square corners, 4:5 for products and rooms, filling the frame.",
+      "**Do** separate content with 1px hairlines (ink at 15%, white at 12–15%) instead of fills or boxes.",
+      "**Do** make actions pills and secondary actions drawn-underline links.",
+      "**Do** animate with the data-lines / data-wipe / data-rise / data-drift grammar and expo-out easing, and honour reduced motion."
+    ],
+    "donts": [
+      "**Don't** use rounded cards, rounded photo frames or boxed stat and feature tiles; this system replaced exactly that look.",
+      "**Don't** fill anything with clay except the book-a-measure pill; elsewhere clay is hover and focus only.",
+      "**Don't** add drop shadows to surfaces, cards or buttons.",
+      "**Don't** introduce a third surface colour or a tinted card on either chapter.",
+      "**Don't** set display type in heavy weights or sentence-case display headings (the night statement paragraph is the one sentence-case large text)."
+    ]
+  }
+}

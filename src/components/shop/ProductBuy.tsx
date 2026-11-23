@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { Check, Minus, Plus, Ruler } from "lucide-react";
+import { ArrowUpRight, Check, Minus, Plus } from "lucide-react";
 import { pkr, type Product } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 
@@ -20,43 +19,41 @@ export default function ProductBuy({ p }: { p: Product }) {
   const add = () => { useCart.getState().add(p.slug, qty); setAdded(true); setTimeout(() => setAdded(false), 1800); };
 
   return (
-    <div className="grid gap-5">
-      <p className="text-[32px] font-light tracking-[-0.03em]">{pkr(p.price)} <span className="text-[16px] text-muted">/ {p.unit}</span></p>
+    <div>
+      <p className="text-[34px] font-light tabular-nums tracking-[-0.03em]">{pkr(p.price)} <span className="text-[15px] text-muted">/ {p.unit}</span></p>
 
       {p.cover && (
-        <div className="rounded-2xl border border-line bg-paper p-4">
-          <label className="flex items-center gap-2 text-[14px] font-medium"><Ruler className="size-4 text-clay" /> How many do I need?</label>
-          <div className="mt-3 flex items-center gap-3">
+        <div className="mt-8 border-y border-ink/15 py-5">
+          <label htmlFor="wall-width" className="label text-ink">How many do I need?</label>
+          <div className="mt-4 flex items-end gap-5">
             <div className="relative flex-1">
-              <input inputMode="decimal" value={wall} onChange={(e) => setWall(e.target.value.replace(/[^0-9.]/g, ""))} placeholder="Wall width"
-                className="h-11 w-full rounded-xl border border-line bg-bone px-3 pr-10 text-[15px] outline-none focus:border-ink" aria-label="Wall width in metres" />
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[13px] text-muted">m</span>
+              <input id="wall-width" inputMode="decimal" value={wall} onChange={(e) => setWall(e.target.value.replace(/[^0-9.]/g, ""))} placeholder="Wall width"
+                className="h-11 w-full border-b border-ink/30 bg-transparent pr-8 text-[17px] outline-none placeholder:text-muted focus:border-ink" />
+              <span className="pointer-events-none absolute bottom-3 right-0 text-[13px] text-muted">m</span>
             </div>
-            <button disabled={!need} onClick={() => need && setQty(need)} className="h-11 rounded-xl bg-sand px-4 text-[14px] font-medium disabled:opacity-40">
+            <button disabled={!need} onClick={() => need && setQty(need)} className="label draw-on h-11 shrink-0 disabled:opacity-35">
               {need ? `Use ${need}` : "Calculate"}
             </button>
           </div>
-          {need && <p className="mt-2 text-[13px] text-muted">{need} {p.unit}s cover {(need * p.cover).toFixed(2)} m of wall · {pkr(need * p.price)}</p>}
+          <p className="mt-3 min-h-[20px] text-[13px] text-muted">{need ? `${need} ${p.unit}s cover ${(need * p.cover).toFixed(2)} m of wall · ${pkr(need * p.price)}` : "Enter the width of the wall in metres."}</p>
         </div>
       )}
 
-      <div className="flex gap-3">
-        <div className="inline-flex h-13 items-center rounded-2xl border border-line">
-          <button aria-label="One less" onClick={() => setQty(Math.max(1, qty - 1))} className="grid size-12 place-items-center"><Minus className="size-4" /></button>
-          <span className="w-10 text-center font-mono">{qty}</span>
-          <button aria-label="One more" onClick={() => setQty(qty + 1)} className="grid size-12 place-items-center"><Plus className="size-4" /></button>
+      <div className="mt-8 flex gap-3">
+        <div className="inline-flex h-14 items-center rounded-full border border-ink/25">
+          <button aria-label="One less" onClick={() => setQty(Math.max(1, qty - 1))} className="grid size-14 place-items-center"><Minus className="size-4" strokeWidth={1.5} /></button>
+          <span className="w-8 text-center tabular-nums">{qty}</span>
+          <button aria-label="One more" onClick={() => setQty(qty + 1)} className="grid size-14 place-items-center"><Plus className="size-4" strokeWidth={1.5} /></button>
         </div>
-        <button onClick={add} className="inline-flex h-13 flex-1 items-center justify-center gap-2 rounded-2xl bg-ink text-[15px] font-medium text-paper transition hover:bg-black">
-          {added ? <><Check className="size-4" /> Added</> : <>Add to cart · {pkr(p.price * qty)}</>}
+        <button onClick={add} className="label inline-flex h-14 flex-1 items-center justify-center gap-2 rounded-full bg-ink text-paper transition duration-300 hover:bg-clay">
+          {added ? <><Check className="size-4" /> Added to cart</> : <>Add to cart · <span className="tabular-nums">{pkr(p.price * qty)}</span></>}
         </button>
       </div>
 
-      <div className="grid gap-2 sm:grid-cols-2">
-        <a href={whatsapp(`Assalam o Alaikum, I'd like to order ${qty} × ${p.name}.`)} target={WHATSAPP_NUMBER ? "_blank" : undefined} rel="noreferrer"
-          className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-[#25D366] text-[14px] font-medium text-[#0b2b17] sm:col-span-2">
-          Order on WhatsApp
-        </a>
-      </div>
+      <a href={whatsapp(`Assalam o Alaikum, I'd like to order ${qty} × ${p.name}.`)} target={WHATSAPP_NUMBER ? "_blank" : undefined} rel="noreferrer"
+        className="label draw-on mt-6 inline-flex items-center gap-2 py-1 text-ink-2">
+        Or order on WhatsApp <ArrowUpRight className="size-3.5" />
+      </a>
     </div>
   );
 }
