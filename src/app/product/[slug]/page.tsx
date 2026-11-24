@@ -7,6 +7,7 @@ import { Crumbs } from "@/components/shop/ShopView";
 import ProductBuy from "@/components/shop/ProductBuy";
 import ProductCard from "@/components/shop/ProductCard";
 import Motion from "@/components/Motion";
+import { Faq, RecentlyViewed } from "@/components/shop/ProductExtras";
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
@@ -26,12 +27,6 @@ export default async function Page({ params }: PageProps<"/product/[slug]">) {
   const specs: [string, string][] = [["Size", p.size], ["Material", p.material], ["Colour", p.colour], ["Sold per", p.unit], ["Category", `${cat.name} · ${sub.name}`]];
   if (p.cover) specs.splice(1, 0, ["Covers", `${p.cover} m of wall width per ${p.unit}`]);
 
-  const perks: [string, string][] = [
-    ["Delivery", "All over Pakistan, calculated at checkout."],
-    ["Fitting", "Free measuring and fitting in Karachi, most walls done in one day."],
-    ["Payment", "Cash on delivery, bank transfer, JazzCash or Easypaisa."],
-  ];
-
   return (
     <div className="pb-32">
       <div className="mx-auto max-w-[1600px] px-5 pt-[132px] sm:px-10 sm:pt-[150px]">
@@ -40,7 +35,7 @@ export default async function Page({ params }: PageProps<"/product/[slug]">) {
 
       <div className="mx-auto mt-8 grid max-w-[1600px] gap-12 sm:px-10 lg:grid-cols-[1.25fr_1fr] lg:gap-20">
         {/* gallery: the room, the finish itself, the collection */}
-        <div className="grid gap-2 sm:gap-5">
+        <div className="grid content-start gap-2 sm:gap-5">
           <div data-wipe className="relative aspect-[4/5] overflow-hidden bg-sand sm:aspect-[5/4]">
             <Image src={sub.img} alt={`${sub.name} installed in a room`} fill priority sizes="(min-width:1024px) 58vw, 100vw" className="object-cover" />
           </div>
@@ -59,14 +54,6 @@ export default async function Page({ params }: PageProps<"/product/[slug]">) {
           <p className="mt-6 max-w-[34rem] text-[16px] leading-relaxed text-ink-2">{p.desc}</p>
           <div className="mt-8"><ProductBuy p={p} /></div>
 
-          <dl className="mt-12 border-t border-ink/15">
-            {perks.map(([k, v]) => (
-              <div key={k} className="grid grid-cols-[110px_1fr] gap-4 border-b border-ink/15 py-4 text-[14px]">
-                <dt className="label pt-0.5 text-muted">{k}</dt><dd className="leading-relaxed text-ink-2">{v}</dd>
-              </div>
-            ))}
-          </dl>
-
           <h2 className="label mt-12 text-ink">Specification</h2>
           <dl className="mt-4 border-t border-ink/15">
             {specs.map(([k, v]) => (
@@ -75,6 +62,7 @@ export default async function Page({ params }: PageProps<"/product/[slug]">) {
               </div>
             ))}
           </dl>
+          <Faq p={p} />
         </div>
       </div>
 
@@ -87,6 +75,7 @@ export default async function Page({ params }: PageProps<"/product/[slug]">) {
           <div className="grid grid-cols-2 gap-x-5 gap-y-14 lg:grid-cols-4">{related.map((r) => <ProductCard key={r.slug} p={r} />)}</div>
         </section>
       )}
+      <RecentlyViewed current={p.slug} />
       <Motion />
     </div>
   );

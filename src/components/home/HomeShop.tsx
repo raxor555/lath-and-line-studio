@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ArrowUpRight } from "lucide-react";
-import { BESTSELLERS, CATEGORIES, fromPrice, pkr } from "@/lib/catalog";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Banknote, Hammer, Ruler, Truck } from "lucide-react";
+import { CATEGORIES, FEATURED, fromPrice, pkr, productsIn } from "@/lib/catalog";
+import { reduced } from "@/lib/motion";
 import ProductCard from "@/components/shop/ProductCard";
 
 /** The collections as an index of huge type. On desktop the hovered collection's room follows the cursor. */
@@ -69,15 +70,91 @@ export function CollectionIndex() {
   );
 }
 
-export function Bestsellers() {
+
+/** What every order comes with, straight under the film. Only things the store actually offers. */
+export function Promises() {
+  const items: [typeof Truck, string][] = [
+    [Truck, "Delivered all over Pakistan"],
+    [Banknote, "Cash on delivery"],
+    [Ruler, "Free measure in Karachi"],
+    [Hammer, "Most walls fitted in a day"],
+  ];
   return (
-    <section className="mx-auto max-w-[1600px] px-5 py-32 sm:px-10">
-      <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-        <h2 data-lines className="display text-[clamp(2.8rem,6.4vw,6rem)]">Featured finishes</h2>
-        <Link href="/shop" className="label draw-on inline-flex items-center gap-2">Shop all products <ArrowUpRight className="size-3.5" /></Link>
+    <div className="border-b border-ink/10">
+      <ul className="no-scrollbar mx-auto flex max-w-[1600px] gap-10 overflow-x-auto px-5 py-5 sm:px-10 lg:justify-between">
+        {items.map(([Icon, t]) => (
+          <li key={t} className="label inline-flex shrink-0 items-center gap-3 text-ink-2"><Icon className="size-4 text-muted" strokeWidth={1.5} />{t}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const SHELVES = [{ key: "featured", label: "Featured" }, ...CATEGORIES.map((c) => ({ key: c.slug, label: c.short }))];
+
+/** A shelf of finishes, one tab per collection, that scrolls sideways. Every card has quick add. */
+export function Shelf() {
+  const [tab, setTab] = useState("featured");
+  const track = useRef<HTMLDivElement>(null);
+  const bar = useRef<HTMLDivElement>(null);
+  const items = tab === "featured" ? FEATURED : productsIn(tab);
+  const cat = CATEGORIES.find((c) => c.slug === tab);
+
+  // a new tab's cards arrive from the right as a wave
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    el.scrollTo({ left: 0 });
+    if (bar.current) gsap.set(bar.current, { scaleX: Math.min(1, el.clientWidth / el.scrollWidth) });
+    if (!reduced()) gsap.fromTo(el.children, { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.9, ease: "expo.out", stagger: 0.05, overwrite: true });
+  }, [tab]);
+
+  const onScroll = () => {
+    const el = track.current;
+    if (!el || !bar.current) return;
+    const seen = (el.scrollLeft + el.clientWidth) / el.scrollWidth;
+    gsap.to(bar.current, { scaleX: Math.min(1, seen), duration: 0.4, ease: "expo.out", overwrite: true });
+  };
+  const step = (dir: number) => {
+    const el = track.current;
+    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.75, behavior: reduced() ? "auto" : "smooth" });
+  };
+
+  return (
+    <section className="py-24 sm:py-32">
+      <div className="mx-auto max-w-[1600px] px-5 sm:px-10">
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <h2 data-lines className="display text-[clamp(2.8rem,6.4vw,6rem)]">Shop the range</h2>
+          <div className="hidden items-center gap-3 sm:flex">
+            <button aria-label="Scroll back" onClick={() => step(-1)} className="grid size-12 place-items-center rounded-full border border-ink/25 transition-colors hover:bg-ink hover:text-paper"><ArrowLeft className="size-4" strokeWidth={1.5} /></button>
+            <button aria-label="Scroll on" onClick={() => step(1)} className="grid size-12 place-items-center rounded-full border border-ink/25 transition-colors hover:bg-ink hover:text-paper"><ArrowRight className="size-4" strokeWidth={1.5} /></button>
+          </div>
+        </div>
+        <div role="tablist" aria-label="Collections" className="no-scrollbar -mx-5 mt-10 flex gap-8 overflow-x-auto border-b border-ink/15 px-5 sm:mx-0 sm:px-0">
+          {SHELVES.map((t) => (
+            <button key={t.key} role="tab" aria-selected={tab === t.key} onClick={() => setTab(t.key)}
+              className={`group relative shrink-0 py-5 transition-colors ${tab === t.key ? "text-ink" : "text-muted hover:text-ink"}`}>
+              <span className="label">{t.label}</span>
+              <span aria-hidden className={`absolute inset-x-0 -bottom-px h-px origin-left bg-ink transition-transform duration-500 ease-[var(--ease-out-expo)] ${tab === t.key ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+            </button>
+          ))}
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-x-5 gap-y-14 lg:grid-cols-4">
-        {BESTSELLERS.slice(0, 4).map((p) => <ProductCard key={p.slug} p={p} />)}
+
+      {/* the track runs edge to edge but its first card lines up with the 1600px container */}
+      <div ref={track} onScroll={onScroll} data-lenis-prevent-touch
+        style={{ paddingInline: "max(var(--g), calc((100% - 1600px) / 2 + var(--g)))", scrollPaddingInline: "max(var(--g), calc((100% - 1600px) / 2 + var(--g)))" }}
+        className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto [--g:20px] sm:[--g:40px]">
+        {items.map((p) => (
+          <div key={p.slug} className="w-[62vw] shrink-0 snap-start sm:w-[38vw] md:w-[29vw] lg:w-[min(22vw,340px)]"><ProductCard p={p} rise={false} /></div>
+        ))}
+        <Link href={cat ? `/shop/${cat.slug}` : "/shop"} className="group flex w-[62vw] shrink-0 snap-start flex-col justify-between border-l border-ink/15 pl-6 sm:w-[38vw] md:w-[29vw] lg:w-[min(22vw,340px)]">
+          <span className="text-[clamp(1.6rem,2.6vw,2.4rem)] font-extralight uppercase leading-[0.95] tracking-[-0.03em]">{cat ? `All ${cat.name}` : "Every product"}</span>
+          <span className="label draw-on inline-flex w-max items-center gap-2">{cat ? `from ${pkr(fromPrice(cat.slug))}` : "Shop all"} <ArrowUpRight className="size-3.5 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
+        </Link>
+      </div>
+      <div className="mx-auto mt-8 max-w-[1600px] px-5 sm:px-10">
+        <div className="h-px bg-ink/15"><div ref={bar} className="h-px origin-left bg-ink" /></div>
       </div>
     </section>
   );

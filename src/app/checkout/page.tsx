@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import { Banknote, Check, Ruler } from "lucide-react";
 import { pkr, productBySlug } from "@/lib/catalog";
 import { cartTotals, useCart } from "@/lib/cart";
 import { whatsapp, WHATSAPP_NUMBER } from "@/components/shop/ProductBuy";
@@ -35,7 +35,7 @@ export default function Checkout() {
   if (done) return (
     <div className="mx-auto grid min-h-svh max-w-[640px] content-center gap-6 px-6 pt-[120px] text-center">
       <span className="mx-auto grid size-14 place-items-center rounded-full bg-ink text-paper"><Check strokeWidth={1.5} /></span>
-      <h1 className="text-[clamp(2.2rem,4vw,3.4rem)] font-extralight uppercase leading-[0.95] tracking-[-0.04em]">Thank you. We&apos;ll call to confirm.</h1>
+      <h1 className="text-[clamp(2.2rem,4vw,3.4rem)] font-extralight uppercase leading-[0.95] tracking-[-0.04em]">Your order is ready.</h1>
       <p className="text-ink-2">{done}</p>
       <p className="border-y border-ink/15 py-4 text-[13px] text-ink-2">Demo checkout: this store isn&apos;t connected to an order system yet, so nothing has been sent. {WHATSAPP_NUMBER ? "Send the order on WhatsApp to place it now." : ""}</p>
       {WHATSAPP_NUMBER && <a href={whatsapp(done)} target="_blank" rel="noreferrer" className="label mx-auto inline-flex h-14 items-center rounded-full bg-clay px-8 text-white">Send on WhatsApp</a>}
@@ -60,11 +60,15 @@ export default function Checkout() {
             <div className="grid border-t border-ink/15 sm:grid-cols-2 sm:gap-x-8">
               {PAY.map((m) => (
                 <label key={m} className={`flex h-14 cursor-pointer items-center gap-3 border-b border-ink/15 text-[15px] transition-colors ${pay === m ? "text-ink" : "text-muted hover:text-ink"}`}>
-                  <input type="radio" name="pay" checked={pay === m} onChange={() => setPay(m)} className="accent-[#b95e37]" /> {m}
+                  <input type="radio" name="pay" checked={pay === m} onChange={() => setPay(m)} className="accent-[#b25934]" /> {m}
                 </label>
               ))}
             </div>
-            <button className="label mt-10 h-14 rounded-full bg-ink text-paper transition duration-300 hover:bg-clay">Place order · <span className="tabular-nums">{pkr(total + ship)}</span></button>
+            <button data-magnetic className="label mt-10 h-14 rounded-full bg-ink text-paper transition-colors duration-300 hover:bg-clay">Place order · <span className="tabular-nums">{pkr(total + ship)}</span></button>
+            <ul className="mt-2 grid gap-2 text-[13px] text-ink-2">
+              <li className="flex items-center gap-3"><Banknote className="size-4 shrink-0 text-muted" strokeWidth={1.5} />With cash on delivery you pay when the order arrives.</li>
+              <li className="flex items-center gap-3"><Ruler className="size-4 shrink-0 text-muted" strokeWidth={1.5} />In Karachi, measuring and fitting are free.</li>
+            </ul>
           </form>
 
           <aside className="h-max lg:sticky lg:top-[124px]">

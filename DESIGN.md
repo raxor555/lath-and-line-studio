@@ -153,7 +153,7 @@ Motion is one grammar applied everywhere: heading lines rise out of masks, photo
 A warm-neutral two-chapter palette with a single terracotta accent reserved for action.
 
 ### Primary
-- **Fired Clay** (#b25934): the free-measure call to action (hero, measure form, mobile menu), the hover state of every ink or white pill, the focus ring, the text caret, the radio accent and the third slat of the logo mark. It never fills a surface or a section.
+- **Fired Clay** (#b25934): the free-measure call to action (nav over the film, measure form, mobile menu), the hover state of every ink or white pill, the focus ring, the text caret, the radio accent and the third slat of the logo mark. It never fills a surface or a section.
 - **Deep Clay** (#a5512e): hover for clay-filled pills only.
 
 ### Neutral
@@ -220,7 +220,8 @@ Confident pills against flat walls; secondary actions are never buttons.
 - **Shape:** full pill (9999px), 54–56px tall, label typography, trailing up-right arrow icon.
 - **Primary (measure):** clay fill, white label, 28px left / 24px right padding; hover darkens to deep clay over 300ms.
 - **Commerce (add to cart, checkout, place order):** ink fill, paper label, full width or flex-grow; hover turns clay.
-- **On night:** white fill, ink label, 40px tall in the nav; hover turns clay with white text.
+- **On night:** white fill, ink label; the shop-first action over the film and the calculator's add action. Hover turns clay with white text.
+- **Nav measure:** clay over the film (hover white with ink), ink once the bar is on stone; 40px tall.
 - **Focus:** 2px clay outline, 3px offset, everywhere.
 
 ### Underline Links
@@ -234,7 +235,8 @@ Confident pills against flat walls; secondary actions are never buttons.
 
 ### Product Card
 - **Frame:** 4:5, square corners, sand placeholder, the product's own rendered swatch filling the frame; on hover the room it is used in fades in over the swatch and the swatch scales to 1.04.
-- **Caption:** range as a 10.5px label in muted, name at 15px, price at 14px tabular with the unit in muted, and a "Add +" draw link to the right.
+- **Quick add:** on hover devices a paper pill ("Quick add · price") slides up inside the frame and turns ink on hover; on touch screens a 40px paper circle with a plus sits in the bottom-right corner. Adding flies a copy of the swatch along an arc into the nav cart count, which then springs.
+- **Caption:** range as a 10.5px label in muted, name at 15px, price at 15px tabular with the unit in muted, then the range's other colours as 18px square swatches with a ring on the current one.
 
 ### Hairline Lists and Tabs
 - **Lists:** specs, perks, process steps and the collection index all use ink-15% top and bottom rules with no fill.
@@ -248,8 +250,17 @@ Confident pills against flat walls; secondary actions are never buttons.
 ### Collection Index (signature)
 The collections as huge type rows (headline scale) between ink-15% hairlines, each with its range count and "from" price. On desktop the hovered row indents 24px while the others dim to 35%, and a 320 by 400px room photo follows the cursor (GSAP quickTo, 0.6s expo-out), scaling up from 0.6 as it appears. On phones each row carries a 64px square thumbnail instead.
 
+### Commerce Surfaces
+- **Service facts:** only what the store offers (delivery all over Pakistan, cash on delivery, free measure and fitting in Karachi, most walls fitted in a day), as label text with a 1.5px-stroke Lucide icon in muted. Never boxed, never a badge, never an invented offer, rating or stock count.
+- **Shelf:** a tabbed sideways track of product cards under the hero. Tabs are label text with the drawn underline; 48px outlined circle arrows on desktop; a 1px progress hairline fills with the scroll. Its first card lines up with the 1600px container.
+- **Price your wall (night):** width and height as 40–54px extralight numerals between 44px outlined circle steppers; finishes as square swatches with a white ring on the selected one; the price at 48–80px extralight, counted with GSAP. Beside it, a to-scale drawing of the wall: each tile is exactly one panel or sheet of the chosen finish, joints are 1px black at 35%, dimensions are hairline rules with label text. The action is the on-night white pill.
+- **Buy box:** price at 34px, per-metre note at 13px muted, colour swatches 48px square, a two-field calculator, "Finish the edges" add-ons as hairline checkbox rows, then the stepper and the ink commerce pill whose total counts as it changes. A sticky bar (stone, top hairline, 76px) slides up once that pill has scrolled away.
+- **Cart drawer:** lines, then "Finish the job" add-ons as text rows with "Add +" draw links, then the counted subtotal, the service facts at 12px and the ink checkout pill. On phones a floating ink pill carries the cart once the nav hides.
+- **Search:** a full-screen night sheet opened by clip-path (also with "/"); a 64px extralight uppercase field over a single underline; results as hairline rows with a 64px swatch, range label, name and price; the active row indents 12px.
+- **Type steps used by commerce:** 12–13px fine print, 14–15px rows and captions, 16px search rows; nothing else.
+
 ### Motion Grammar
-Opted into with data attributes, run once per page, disabled under reduced motion: `data-lines` (heading lines rise 105% out of a mask, 1.2s expo-out, 0.09s stagger), `data-wipe` (frame opens from the bottom over 1.4s while the photo settles from 1.15x), `data-rise` (32px lift, 1s, batched with 0.08s stagger), `data-drift` (photo moves -8% to 8% with the scroll). CSS transitions use the expo-out curve at 500–700ms.
+Opted into with data attributes, run once per page, disabled under reduced motion (`data-magnetic` makes a main pill lean up to a fifth of its size toward the mouse and spring back): `data-lines` (heading lines rise 105% out of a mask, 1.2s expo-out, 0.09s stagger), `data-wipe` (frame opens from the bottom over 1.4s while the photo settles from 1.15x), `data-rise` (32px lift, 1s, batched with 0.08s stagger), `data-drift` (photo moves -8% to 8% with the scroll). CSS transitions use the expo-out curve at 500–700ms.
 
 ## Do's and Don'ts
 

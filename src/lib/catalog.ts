@@ -145,5 +145,30 @@ export const categoryBySlug = (s: string) => CATEGORIES.find((c) => c.slug === s
 export const productBySlug = (s: string) => PRODUCTS.find((x) => x.slug === s);
 export const productsIn = (cat?: string, sub?: string) => PRODUCTS.filter((x) => (!cat || x.category === cat) && (!sub || x.sub === sub));
 export const fromPrice = (cat: string, sub?: string) => Math.min(...productsIn(cat, sub).map((x) => x.price));
-export const BESTSELLERS = PRODUCTS.filter((x) => x.badge === "Bestseller");
+/** the store's picks for the home shelf (the badge field is internal; no badge is shown to shoppers) */
+export const FEATURED = PRODUCTS.filter((x) => x.badge);
+/** the same range in other colours, current product first */
+export const siblings = (p: Product) => productsIn(p.category, p.sub);
+
+/** height in metres one unit covers, read from its size ("160 × 2900 × 22 mm" → 2.9); undefined for loose items */
+export const unitHeight = (p: Product) => {
+  if (!p.cover) return undefined;
+  if (p.unit === "roll") return p.sub === "wallpaper" ? 10 : 3;
+  const mm = p.size.match(/×\s*(\d{3,4})/);
+  return mm ? +mm[1] / 1000 : undefined;
+};
+
+/** units for a wall: columns across × rows up (wallpaper rolls give several drops each) */
+export const unitsFor = (p: Product, width: number, height: number) => {
+  const h = unitHeight(p);
+  if (!p.cover || !h || !(width > 0) || !(height > 0)) return null;
+  const cols = Math.ceil(width / p.cover - 1e-6);
+  if (p.unit === "roll" && h >= height) { const drops = Math.max(1, Math.floor(h / height)); return { cols, rows: 1, units: Math.ceil(cols / drops) }; }
+  const rows = Math.ceil(height / h - 1e-6);
+  return { cols, rows, units: cols * rows };
+};
+
+/** the finishing pieces a wall usually needs, offered next to panels */
+export const ADDONS = ["panel-adhesive-310", "trim-end-cap-black", "trim-corner-gold", "led-profile-recessed"];
+export const needsAddons = (p: Product) => ["pvc-panels", "wpc", "marble-sheets"].includes(p.category);
 export const pkr = (n: number) => "Rs " + Math.round(n).toLocaleString("en-US");

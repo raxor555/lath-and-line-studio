@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Pause, Play, RotateCcw } from "lucide-react";
-import { CATEGORIES } from "@/lib/catalog";
+import { CATEGORIES, PRODUCTS, fromPrice, pkr } from "@/lib/catalog";
+
+const LOWEST = Math.min(...PRODUCTS.filter((p) => p.unit === "panel").map((p) => p.price));
 
 /* Full-bleed film hero: a panelled living room whose wall lights come up once (15 s, ~2 MB, 575 KB on phones),
    then holds on the lit room. The nav sits over it, transparent, until the page scrolls past. */
@@ -71,7 +73,10 @@ export default function Hero() {
             <ul className="grid gap-2.5">
               {CATEGORIES.map((c) => (
                 <li key={c.slug}>
-                  <Link href={`/shop/${c.slug}`} className="label draw text-white/75 transition hover:text-white">{c.name}</Link>
+                  <Link href={`/shop/${c.slug}`} className="group label inline-flex items-baseline gap-4 text-white/75 transition hover:text-white">
+                    <span className="tabular-nums text-white/45 transition group-hover:text-white/80">from {pkr(fromPrice(c.slug))}</span>
+                    <span className="draw">{c.name}</span>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -79,17 +84,19 @@ export default function Hero() {
         </div>
 
         <div className="hero-rise mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 [animation-delay:360ms]">
-          <Link href="/#visit" className="label inline-flex h-[54px] items-center gap-2.5 rounded-full bg-clay pl-7 pr-6 text-white shadow-[0_14px_34px_-14px_rgb(178_89_52/0.9)] transition duration-300 hover:bg-[#a5512e]">
-            Book a free measure <ArrowUpRight className="size-4" />
+          <Link href="/shop" data-magnetic className="label inline-flex h-[54px] items-center gap-2.5 rounded-full bg-white pl-7 pr-6 text-ink transition-colors duration-300 hover:bg-clay hover:text-white">
+            Shop wall panels <ArrowUpRight className="size-4" />
           </Link>
-          <Link href="/shop" className="label draw-on inline-flex items-center gap-2 py-1 text-white/90 transition hover:text-white">
-            Shop all products <ArrowUpRight className="size-4" />
+          <Link href="/#price" className="label draw-on inline-flex items-center gap-2 py-1 text-white/90 transition hover:text-white">
+            Price your wall <ArrowUpRight className="size-4" />
+          </Link>
+          <Link href="/#visit" className="label draw-on inline-flex items-center gap-2 py-1 text-white/90 transition hover:text-white">
+            Book a free measure <ArrowUpRight className="size-4" />
           </Link>
         </div>
 
         <div className="mt-auto flex items-end justify-between gap-6 border-t border-white/15 pt-5 text-[11.5px] uppercase tracking-[0.16em] text-white/70">
-          <p className="hidden sm:block">Delivery all over Pakistan<span className="mx-3 text-white/30">/</span>Cash on delivery</p>
-          <p className="sm:hidden">Delivered all over Pakistan</p>
+          <p><span className="text-white">Panels from {pkr(LOWEST)}</span><span className="mx-3 text-white/30">/</span><span className="hidden sm:inline">Cash on delivery</span><span className="sm:hidden">COD</span></p>
           <a href="#shop-start" className="hidden items-center gap-2 transition hover:text-white md:inline-flex">
             Scroll <ArrowDown className="hero-nudge size-3.5" />
           </a>

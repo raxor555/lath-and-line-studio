@@ -21,7 +21,7 @@ Shoppers browse on phones as much as desktop. Cash on delivery. Free measuring a
 ## Capabilities and Constraints
 - Next.js 16 App Router, Tailwind v4, GSAP + Lenis, zustand cart; deployed on Vercel from master.
 - Catalog, prices and copy in `src/lib/catalog.ts`; prices in PKR.
-- WhatsApp number is unset (`WHATSAPP_NUMBER` in `src/components/Sections.tsx`).
+- WhatsApp number is unset (`WHATSAPP_NUMBER` in `src/components/shop/ProductBuy.tsx`); no offer or discount exists yet (confirmed Nov 2026).
 
 ## Brand Commitments
 - Name "Lath & Line" is a placeholder; the slat logo mark in `Nav.tsx` stays.

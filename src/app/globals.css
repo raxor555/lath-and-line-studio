@@ -41,9 +41,16 @@ body {
   color: var(--color-paper);
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-clay);
-  outline-offset: 3px;
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-clay);
+    outline-offset: 3px;
+  }
+}
+
+/* panel joints in the wall drawing */
+:root {
+  --joint: color-mix(in oklab, var(--color-night) 60%, transparent);
 }
 
 
